@@ -15,7 +15,8 @@ const RecipeCard = props => {
       <p>Meal Type: {props.recipe.mealType}</p>
       <p>Chef Name: {props.chef.name}</p>
       <p>Ingredients: {props.recipe.ingredients}</p>
-      <button>More Info</button>
+      {/* Might need to change recipe page link */}
+      <button onClick={`/recipes/${props.recipe.id}`}>More Info</button>
     </div>
   )
 }
