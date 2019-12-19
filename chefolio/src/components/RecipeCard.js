@@ -6,6 +6,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchRecipe } from '../actions/actions';
+import { Link } from 'react-router-dom';
 
 const RecipeCard = props => {
   return (
@@ -16,7 +17,9 @@ const RecipeCard = props => {
       <p>Chef Name: {props.chef.name}</p>
       <p>Ingredients: {props.recipe.ingredients}</p>
       {/* Might need to change recipe page link */}
-      <button onClick={`/recipes/${props.recipe.id}`}>More Info</button>
+      <Link to={`/recipes/${props.recipe.id}`} className="recipe-buttons">
+        More Info
+      </Link>
     </div>
   )
 }
