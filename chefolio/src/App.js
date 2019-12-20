@@ -1,3 +1,4 @@
+import SearchForm from './components/SearchForm';
 import React from "react";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
@@ -13,6 +14,7 @@ function App() {
   return (
     <div className="App">
       <Nav />
+      <SearchForm />
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/login" component={LoginForm} />
