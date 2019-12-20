@@ -1,11 +1,11 @@
-// create a fetchRecipe action in actions
+// create a fetchRecipe and fetchChef action in actions
 // create a recipe, chef and isFetching state for initialState in reducers
 
 // When User clicks on "More Info" button, recipe instructions will be listed
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchRecipe } from '../actions/actions';
+import { fetchRecipe, fetchChef } from '../actions/actions';
 import { Link } from 'react-router-dom';
 
 const RecipeCard = props => {
@@ -38,4 +38,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { fetchRecipe })(RecipeCard);
+export default connect(mapStateToProps, { fetchRecipe, fetchChef })(RecipeCard);
