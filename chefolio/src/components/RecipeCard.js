@@ -7,6 +7,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchRecipe, fetchChef } from '../actions/actions';
 import { Link } from 'react-router-dom';
+// Change to index.scss once completed
+import '../css/RecipeCard.scss';
 
 const RecipeCard = props => {
   return (
