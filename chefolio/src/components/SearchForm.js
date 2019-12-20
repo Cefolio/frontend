@@ -1,31 +1,55 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
 
-export default class SearchForm extends React.Component{
-    state = {
-        initialItems: [],
-        items: [],
+import { fetchRecipesByName } from '../actions/recipesByName';
 
-    }
-    filteredList = e => {
-        let items = this.state.initialItems;
-        items = items.filter((item) => {
-            return item.toLowerCase().search(e.target.value.toLowerCase()) !== -1;
-
+function SearchForm({
+    fetchRecipesByName,
+    isFetching,
+    error,
+    page,
+    showModal,
+    show,
+    ...rest
+}){
+    const [recipe, setRecipe] = useState('');
+    const fetchRecipe = async data => {
+        const res = await fetchRecipesByName({
+            searchTerm: data
         });
-        this.setState({items:items});
+        if(res && page !== 'landing'){
+            res.history.push('/search');
+        }else{
 
-    }
-    componentWillMount = () => {
-        this.setState({
-            initialItems: this.props.content,
-            items: this.props.content
-        })
-    }
-    render(){
-        return(
-            <div>
-                
-            </div>
-        )
-    }
+        }
+    };
+    const handleChange = e => {
+        setRecipe(e.target.value);
+    };
+    const handleInput = e => {
+        if(e.keyCode === 13){
+            fetchRecipe(recipe);
+        }
+    };
+    return(
+        <div>
+            <input
+                type="text"
+                placeholder="Search For Recipes"
+                name="recipes"
+                value={recipe}
+                onChange={e => handleChange(e)}
+                onKeyDown={e => handleInput(e)}
+                />
+                <button onClick={showModal}>Search</button>
+        </div>
+    );
 }
+const mapStateToProps = state => {
+    const { isFetching } = state;
+    return {
+        isFetching
+    };
+};
+
+export default connect(mapStateToProps, {fetchRecipesByName})(SearchForm);
