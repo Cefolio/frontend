@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-import RecipeCardContainer from "../containers/RecipeCardContainer";
 import SearchForm from "./SearchForm";
-import NewRecipeForm from "./NewRecipeForm";
+import RecipeCardContainer from "../containers/RecipeCardContainer";
 
-export default class ChefsDashboard extends Component {
+export default class ChefRecipePage extends Component {
   render() {
     return (
       <div>
         <SearchForm />
-        <NewRecipeForm />
         <RecipeCardContainer />
       </div>
     );
