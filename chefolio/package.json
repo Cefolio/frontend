@@ -7,11 +7,8 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.0",
-<<<<<<< HEAD
     "node-sass": "^4.13.0",
-=======
     "formik": "^2.0.8",
->>>>>>> 5127c59eb2ba36a836e35eddf70dc0123fb8f38c
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",
