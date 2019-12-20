@@ -12,10 +12,16 @@ const RecipeCardPage = props => {
       <p>Chef Name: {props.chef.name}</p>
       <p>Ingredients: {props.recipe.ingredients}</p>
       <p>Instructions: {props.recipe.instructions}</p>
-      {/* Might need to change recipe page link */}
-      <Link to="/recipes" className="recipe-buttons">
-        Back to Recipes
-      </Link>
+
+      {localStorage.getItem('token') ?
+        <Link to={`/dashboard/${props.chef.id}`} className="recipe-buttons">
+          Back to Recipes
+        </Link>
+      :
+        <Link to={`/chef/${props.chef.id}/recipes`} className="recipe-buttons">
+          Back to Recipes
+        </Link>
+      }
     </div>
   )
 }

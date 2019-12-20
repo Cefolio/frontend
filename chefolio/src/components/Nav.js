@@ -1,11 +1,16 @@
+// create a fetchChef action in actions
+// create a chef and isFetching state for initialState in reducers
+
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchChef } from '../actions/actions';
 
-const Nav = () => {
+const Nav = props => {
   return (
     <div>
       {localStorage.getItem('token') ? 
-        <Link to="/chef-dashboard">Chef Dashboard</Link>
+        <Link to={`/dashboard/${props.chef.id}`}>Chef Dashboard</Link>
         :
         <Link to="/">Home</Link>
       }
@@ -21,4 +26,11 @@ const Nav = () => {
   )
 }
 
-export default Nav;
+const mapStateToProps = state => {
+  return {
+    chef: state.chef,
+    isFetching: state.isFetching
+  }
+}
+
+export default connect(mapStateToProps, { fetchChef })(Nav);
