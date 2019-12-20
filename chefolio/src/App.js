@@ -6,6 +6,7 @@ import Homepage from "./components/Homepage";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import ChefRecipePage from "./components/ChefRecipePage";
+import ChefsDashboard from "./components/ChefsDashboard";
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
@@ -17,7 +18,8 @@ function App() {
         <Route path="/login" component={LoginForm} />
         <Route path="register" component={RegisterForm} />
         <Route path="/chef/:id/recipes" component={ChefRecipePage} />
-        <PrivateRoute path="/dashboard" component={ChefsDashboard} />
+        {/* // Update to private route */}
+        <Route path="/dashboard" component={ChefsDashboard} />
       </Switch>
     </div>
   );
