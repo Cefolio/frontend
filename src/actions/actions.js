@@ -36,6 +36,28 @@ export const EDIT_CHEF_FAILURE = "EDIT_CHEF_FAILURE";
 export const POST_CHEF_SUCCESS = "POST_CHEF_SUCCESS";
 export const POST_CHEF_FAILURE = "POST_CHEF_FAILURE";
 
+// Added for Nav
+export const fetchChef = chefID => dispatch => {
+  dispatch({ type: FETCH_INITIALIZE });
+
+  axiosWithAuth()
+    .get(`/dashboard/${chefID}`)
+    .then(res => {
+      // update based on documentation
+      dispatch({
+        type: FETCH_CHEF_SUCCESS,
+        payload: res.data.chef
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: FETCH_CHEF_FAILURE,
+        payload: { err, message: err.message }
+      });
+      toast.error(err.message);
+    });
+};
+
 export const fetchRecipes = chefID => dispatch => {
   dispatch({ type: FETCH_INITIALIZE });
 
