@@ -8,7 +8,7 @@ export default class ChefsDashboard extends Component {
     return (
       <div>
         <SearchForm />
-        <NewRecipeForm />
+        {<NewRecipeForm />}
         <RecipeCardContainer />
       </div>
     );
