@@ -62,11 +62,35 @@ const UserForm = ({ onSubmit }) => {
                                 name="username"
                                 component="div"
                                 />
-                        </Form>
-                    </div>
-                )
-            }}
-    )
-}
+                            <Field
+                                className="input-field"
+                                name="password"
+                                type="password"
+                                placeholder="Password"
+                                />
+                            <ErrorMessage
+                                className="error-field"
+                                name="password"
+                                component="div"
+                                />
 
-//===https://github.com/bw-dev-libs/Front-End/blob/master/dev-libs/src/components/Signup.js
+                        
+                        <button type="submit">Create Account</button>
+
+                        <p>
+                            Already have an account?&nbsp;&nbsp;&nbsp;
+                            <span>
+                                <Link className="login-span" to="/login">
+                                    Log in
+                                </Link>
+                            </span>
+                        </p>
+                    </Form>
+                    </div>
+                );
+            }}
+        />
+    );
+};
+
+export default UserForm;
