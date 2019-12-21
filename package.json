@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "reduce-reducers": "^1.0.4",
-    "redux-thunk": "^2.3.0"
-  }
-}
