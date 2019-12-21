@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
+import Nav from './Nav';
 
 const RegristrationApi = 'api/auth/register';
 const initialUserForm = {
@@ -24,7 +25,7 @@ export default function Container(){
                 actions.resetForm();
             })
             .catch(err => {
-                debugger;
+                console.log(err);
             });
     };
     return (
@@ -50,6 +51,7 @@ const UserForm = ({ onSubmit }) => {
                 return(
                     <div>
                         <Form>
+                            <Nav />
                             <h1>Sign Up</h1>
                             <Field
                                 className='input-field'
