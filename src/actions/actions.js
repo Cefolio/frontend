@@ -152,3 +152,22 @@ export const editRecipe = recipeID => dispatch => {
       toast.error(err.message);
     });
 };
+
+export const deleteRecipe = recipeID => dispatch => {
+  dispatch({ type: DELETE_INITIALIZE });
+
+  axiosWithAuth()
+    .delete(`/recipe/${recipeID}`)
+    .then(res => {
+      dispatch({
+        type: DELETE_RECIPE_SUCCESS
+      })
+    })
+    .catch(err => {
+      dispatch({
+        type: DELETE_RECIPE_FAILURE,
+        payload: { err, message: err.message }
+      })
+      toast.error(err.message);
+    })
+}
