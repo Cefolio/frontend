@@ -18,16 +18,9 @@ const RecipeCard = props => {
       <p>Meal Type: {props.recipe.mealType}</p>
       <p>Chef Name: {props.chef.name}</p>
       <p>Ingredients: {props.recipe.ingredients}</p>
-
-      {localStorage.getItem('token') ?
-        <Link to={`dashboard/${props.chef.id}/recipes/${props.recipe.id}`} className="recipe-buttons">
-          More Info
-        </Link>
-      :
         <Link to={`chef/${props.chef.id}/recipes/${props.recipe.id}`} className="recipe-buttons">
           More Info
         </Link>
-      }
     </div>
   )
 }
