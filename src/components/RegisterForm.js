@@ -31,11 +31,13 @@ export default function Container(){
     return (
         <div>
             {serverError}
-            <UserForm onSubmit={addUser}/>
+            <UserForm onSubmit={addChef}/>
         </div>
     );
 }
-
+const validate = formValues => {
+    const errors = {};
+}
 const validationSchema = yup.object().shape({
     username: yup.string().required('Please enter your username'),
     password: yup.string().required('No password provided.').min(4, 'Password is too short -- should be at least 4 characters.').matches(/(?=.*[0-9])/, "Password must contain a number and a special character.")
@@ -45,7 +47,7 @@ const UserForm = ({ onSubmit }) => {
         <Formik
             validate={validate}
             validationSchema={validationSchema}
-            initialValues={initialValues}
+            initialValues={initialUserForm}
             onSubmit={onSubmit}
             render={props => {
                 return(
@@ -95,4 +97,3 @@ const UserForm = ({ onSubmit }) => {
     );
 };
 
-export default UserForm;
