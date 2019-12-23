@@ -41,7 +41,7 @@ export const addChef = chefID => dispatch => {
 
   axiosWithAuth()
     .post(`/chef/${chefID}`)
-    ,then(res => {
+    .then(res => {
       dispatch({
         type: POST_CHEF_SUCCESS,
         payload: res.data.chef
@@ -105,7 +105,7 @@ export const editChef = chefID => dispatch => {
     });
 };
 
-export const fetchRecipes = chefID => dispatch => {
+export const fetchRecipe = chefID => dispatch => {
   dispatch({ type: FETCH_INITIALIZE });
 
   axiosWithAuth()

@@ -10,6 +10,7 @@ import ChefRecipePage from "./components/ChefRecipePage";
 import ChefsDashboard from "./components/ChefsDashboard";
 import RecipeCardPage from "./components/RecipeCardPage";
 import PrivateRoute from "./components/PrivateRoute";
+import NewRecipe from './components/NewRecipeForm';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" component={LoginForm} />
         <Route path="register" component={RegisterForm} />
         <Route path="/chef/:id" component={ChefRecipePage} />
+        <PrivateRoute path='/newrecipe' component={NewRecipe}/>
         <Route path="/recipe/:id" component={RecipeCardPage} />
         {/* // Update to private route */}
         <Route path="/dashboard" component={ChefsDashboard} />

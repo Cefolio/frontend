@@ -8,6 +8,7 @@ const RecipeCardPage = props => {
   return (
     <div className="recipe-card">
       {props.displayedRecipes.map(recipe => {
+        return(
         <div>
           <RecipeCard recipe={recipe} />
           <p>Instructions: {props.recipe.instructions}</p>
@@ -21,7 +22,7 @@ const RecipeCardPage = props => {
               Back to Recipes
             </Link>
           }
-        </div>
+        </div>)
       })}
     </div>
   )
