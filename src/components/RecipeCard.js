@@ -9,6 +9,12 @@ import { fetchRecipe, fetchChef } from '../actions/actions';
 import { Link } from 'react-router-dom';
 // Change to index.scss once completed
 import '../css/RecipeCard.scss';
+import gsap from 'gsap';
+
+gsap.from('.recipe-card', {
+  duration: 2,
+
+})
 
 const RecipeCard = props => {
   return (
