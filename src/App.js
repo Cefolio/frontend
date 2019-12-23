@@ -25,7 +25,7 @@ function App() {
         <PrivateRoute path='/newrecipe' component={NewRecipe}/>
         <Route path="/recipe/:id" component={RecipeCardPage} />
         {/* // Update to private route */}
-        <Route path="/dashboard" component={ChefsDashboard} />
+        <PrivateRoute path="/dashboard" component={ChefsDashboard} />
       </Switch>
     </div>
   );
