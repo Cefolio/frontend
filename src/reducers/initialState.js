@@ -1,5 +1,6 @@
 const initialState = {
   chef: {
+    id: "",
     isLoggedIn: false,
     name: "",
     email: "",

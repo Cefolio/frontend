@@ -3,13 +3,14 @@
 
 // When User clicks on "More Info" button, recipe instructions will be listed
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchRecipe, fetchChef } from '../actions/actions';
 import { Link } from 'react-router-dom';
 // Change to index.scss once completed
 import '../css/RecipeCard.scss';
 import gsap from 'gsap';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 gsap.from('.recipe-card', {
   duration: 2,
@@ -17,14 +18,47 @@ gsap.from('.recipe-card', {
 })
 
 const RecipeCard = props => {
+
+  const [recipe, setRecipe] = useState({
+    id: '',
+    mealType: '',
+    ingredients: '',
+    img: ''
+  })
+
+  const [chef, setChef] = useState({
+    name: ''
+  });
+
+  useEffect(() => {
+    axiosWithAuth()
+      .get(`/recipe/${props.displayRecipes}`)
+      .then(res => {
+        props.fetchRecipe();
+        props.fetchChef();
+        setRecipe(props.recipe);
+        setChef(props.chef);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  })
+
+  // useEffect(() => {
+  //   props.fetchRecipe();
+  //   props.fetchChef();
+  //   setRecipe(props.recipe)
+  //   setChef(props.chef.name)
+  // }, [props.recipe, props.chef])
+
   return (
     <div className="recipe-card">
-      <img src={props.recipe.img} alt={props.recipe.title} />
-      <h2>{props.recipe.title}</h2>
-      <p>Meal Type: {props.recipe.mealType}</p>
-      <p>Chef Name: {props.chef.name}</p>
-      <p>Ingredients: {props.recipe.ingredients}</p>
-        <Link to={`chef/${props.chef.id}/recipes/${props.recipe.id}`} className="recipe-buttons">
+      <img src={recipe.img} alt={recipe.title} />
+      <h2>{recipe.title}</h2>
+      <p>Meal Type: {recipe.mealType}</p>
+      <p>Chef Name: {chef.name}</p>
+      <p>Ingredients: {recipe.ingredients}</p>
+        <Link to={`/recipes/${props.recipe}`} className="recipe-buttons">
           More Info
         </Link>
     </div>

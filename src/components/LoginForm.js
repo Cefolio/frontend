@@ -10,7 +10,7 @@ function LoginForm({ errors, touched }) {
 
         <div>
           {touched.password && errors.password && <p>{errors.password}</p>}
-          <Field type="text" name="password" placeholder="Password" />
+          <Field type="password" name="password" placeholder="Password" />
         </div>
         <button>Login</button>
       </Form>
@@ -24,7 +24,7 @@ const FormikLoginForm = withFormik({
     const validationSchema = yup.object().shape({
       username: yup
         .string()
-        .username()
+        // .username()
         .required("You must create a username!"),
       password: yup
         .string()
