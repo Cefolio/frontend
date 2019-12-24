@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 // Change to index.scss once completed
 import '../css/RecipeCard.scss';
 import gsap from 'gsap';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+// import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 gsap.from('.recipe-card', {
   duration: 2,
