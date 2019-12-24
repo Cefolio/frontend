@@ -46,7 +46,7 @@ const RecipeCard = props => {
       <p>Meal Type: {recipe.mealType}</p>
       <p>Chef Name: {chef.name}</p>
       <p>Ingredients: {recipe.ingredients}</p>
-        <Link to={`/recipes/${props.displayRecipes}`} className="recipe-buttons">
+        <Link to={`/recipes/${props.recipe}`} className="recipe-buttons">
           More Info
         </Link>
     </div>
