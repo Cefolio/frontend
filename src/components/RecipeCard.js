@@ -26,18 +26,27 @@ const RecipeCard = props => {
     img: ''
   })
 
-  const [chef, setChef] = useState('');
+  const [chef, setChef] = useState({
+    name: ''
+  });
+
+  // useEffect(() => {
+    // axiosWithAuth()
+    //   .get(`/recipe/${props.displayRecipes}`)
+    //   .then(res => {
+    //     setRecipe(props.recipe);
+    //   })
+    //   .catch(err => {
+    //     console.error(err);
+    //   });
+  // })
 
   useEffect(() => {
-    axiosWithAuth()
-      .get(`/recipe/${props.displayRecipes}`)
-      .then(res => {
-        setRecipe(props.recipe);
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  })
+    props.fetchRecipe();
+    props.fetchChef();
+    setRecipe(props.recipe)
+    setChef(props.chef.name)
+  }, [props.recipe, props.chef])
 
   return (
     <div className="recipe-card">

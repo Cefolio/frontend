@@ -1,28 +1,63 @@
 import React, { useState, useEffect } from 'react';
-import RecipeCard from './RecipeCard';
+// import RecipeCard from './RecipeCard';
+// import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { connect } from 'react-redux';
-import { fetchRecipe } from '../actions/actions';
+import { fetchRecipe, fetchChef } from '../actions/actions';
 import { Link } from 'react-router-dom';
 
 const RecipeCardPage = props => {
 
   const [recipe, setRecipe] = useState({
     id: '',
-    instructions: ''
+    mealType: '',
+    ingredients: '',
+    img: ''
   })
+
+  const [chef, setChef] = useState({
+    name: ''
+  });
 
   useEffect(() => {
     props.fetchRecipe();
+    props.fetchChef();
     setRecipe(props.recipe)
-  }, [props.recipe])
+    setChef(props.chef.name)
+  }, [props.recipe, props.chef])
+
+  // const [recipe, setRecipe] = useState({
+  //   id: '',
+  //   mealType: '',
+  //   ingredients: '',
+  //   img: ''
+  // })
+
+  // const [chef, setChef] = useState('');
+
+  // useEffect(() => {
+  //   axiosWithAuth()
+  //     .get(`/recipe/${props.displayRecipes}`)
+  //     .then(res => {
+  //       setRecipe(props.recipe);
+  //     })
+  //     .catch(err => {
+  //       console.error(err);
+  //     });
+  // })
 
   return (
     <div className="recipe-card">
-      {props.displayedRecipes.map(recipe => {
+      {recipe.map(recipe => {
         return(
-        <div>
-          <RecipeCard recipe={recipe} />
-          <p>Instructions: {recipe.instructions}</p>
+        <div> 
+          {/* RecipeCard component has button - not needed here */}
+          {/* <RecipeCard recipe={recipe} /> */}
+          <img src={recipe.img} alt={recipe.title} />
+          <h2>{recipe.title}</h2>
+          <p>Meal Type: {recipe.mealType}</p>
+          <p>Chef Name: {chef.name}</p>
+          <p>Ingredients: {recipe.ingredients}</p>
+          <p className="recipe-card">Instructions: {recipe.instructions}</p>
 
           {localStorage.getItem('token') ?
             <Link to={`/dashboard/${props.chef.id}`} className="recipe-buttons">
@@ -48,4 +83,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { fetchRecipe })(RecipeCardPage);
+export default connect(mapStateToProps, { fetchRecipe, fetchChef })(RecipeCardPage);
