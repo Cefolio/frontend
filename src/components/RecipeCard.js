@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 // Change to index.scss once completed
 import '../css/RecipeCard.scss';
 import gsap from 'gsap';
-// import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 gsap.from('.recipe-card', {
   duration: 2,
@@ -30,23 +30,26 @@ const RecipeCard = props => {
     name: ''
   });
 
-  // useEffect(() => {
-    // axiosWithAuth()
-    //   .get(`/recipe/${props.displayRecipes}`)
-    //   .then(res => {
-    //     setRecipe(props.recipe);
-    //   })
-    //   .catch(err => {
-    //     console.error(err);
-    //   });
-  // })
-
   useEffect(() => {
-    props.fetchRecipe();
-    props.fetchChef();
-    setRecipe(props.recipe)
-    setChef(props.chef.name)
-  }, [props.recipe, props.chef])
+    axiosWithAuth()
+      .get(`/recipe/${props.displayRecipes}`)
+      .then(res => {
+        props.fetchRecipe();
+        props.fetchChef();
+        setRecipe(props.recipe);
+        setChef(props.chef);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  })
+
+  // useEffect(() => {
+  //   props.fetchRecipe();
+  //   props.fetchChef();
+  //   setRecipe(props.recipe)
+  //   setChef(props.chef.name)
+  // }, [props.recipe, props.chef])
 
   return (
     <div className="recipe-card">
