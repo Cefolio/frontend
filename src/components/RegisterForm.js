@@ -38,10 +38,9 @@ const UserForm = ({ onSubmit }) => {
                     <div>
                         <Form>
                             <Nav />
-                            <h1>Sign Up</h1>
-                            <img
-                            ref={el => {logoItem = el}}
-                            src='../redcharlie-t-7KEq9M0b0-unsplash.jpg'/>
+                            <h1
+                            ref={el => {logoItem = el }}>Sign Up</h1>
+                            
                             <Field
                                 className='input-field'
                                 name='username'
