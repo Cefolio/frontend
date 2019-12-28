@@ -1,11 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef} from "react";
 import { withFormik, Form, Field } from "formik";
 import * as yup from "yup";
 
+import {TweenMax, Power3} from 'gsap';
+
 function LoginForm({ errors, touched }) {
+  let logoItem = useRef(null);
+
+  console.log(logoItem);
+  useEffect(() => {
+    console.log(logoItem);
+    TweenMax.to(
+        logoItem,
+        .8,
+        {
+            opacity: 1,
+            y: -20,
+            ease: Power3.easeOut
+        }
+    )
+    
+}, [])
   return (
     <div>
       <Form>
+        <h1 ref={el => {logoItem = el}}>Sign In</h1>
         <Field type="text" name="username" placeholder="Username" />
 
         <div>

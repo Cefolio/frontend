@@ -1,14 +1,6 @@
 import React from 'react';
 import { AxiosWithAuth, axiosWithAuth } from '../utils/axiosWithAuth';
 
-
-
-
-
-
-
-
-
 class NewRecipe extends React.Component {
     state = {
         id: new Date().getUTCMilliseconds(),
