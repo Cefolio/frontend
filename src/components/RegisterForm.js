@@ -1,17 +1,46 @@
-import React, { useState } from 'react';
+import React, {  useRef, useEffect } from 'react';
 import { withFormik,Formik, Form, Field, ErrorMessage } from 'formik';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
 import Nav from './Nav';
-import FormikLoginForm from './LoginForm';
+
+import {TweenMax, Power3} from 'gsap';
 
 const UserForm = ({ onSubmit }) => {
+    let logoItem = useRef(null);
+    let textItem = useRef(null);
+    console.log(logoItem);
+
+    useEffect(() => {
+        console.log(logoItem);
+        TweenMax.to(
+            logoItem,
+            .8,
+            {
+                opacity: 1,
+                y: -20,
+                ease: Power3.easeOut
+            }
+        )
+        TweenMax.to(
+            textItem,
+            .8,
+            {
+                opacity: 1,
+                y: -20,
+                ease: Power3.easeOut,
+                delay: .2
+            }
+        )
+    }, [])
     return (
                     <div>
                         <Form>
                             <Nav />
-                            <h1>Sign Up</h1>
+                            <h1
+                            ref={el => {logoItem = el }}>Sign Up</h1>
+                            
                             <Field
                                 className='input-field'
                                 name='username'
@@ -38,7 +67,8 @@ const UserForm = ({ onSubmit }) => {
                         
                         <button type="submit">Create Account</button>
 
-                        <p>
+                        <p
+                        ref={el => { textItem = el}}>
                             Already have an account?&nbsp;&nbsp;&nbsp;
                             <span>
                                 <Link className="login-span" to="/login">
