@@ -22,7 +22,7 @@ function LoginForm({ errors, touched }) {
     
 }, [])
   return (
-    <div>
+    <div classname= "form-2">
       <Form>
         <h1 ref={el => {logoItem = el}}>Sign In</h1>
         <Field type="text" name="username" placeholder="Username" />
