@@ -7,6 +7,10 @@ import {
   EDIT_CANCEL,
   DELETE_INITIALIZE,
 
+  //==== RECIPES FETCH ACTIONS ====//
+  FETCH_RECIPES_SUCCESS,
+  FETCH_RECIPES_FAILURE,
+
   //==== RECIPE FETCH ACTIONS ====//
   FETCH_RECIPE_SUCCESS,
   FETCH_RECIPE_FAILURE,
@@ -77,6 +81,21 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         isDeleting: true,
         error: ""
+      };
+
+    case FETCH_RECIPES_SUCCESS:
+      return {
+        ...state,
+        displayedRecipes: action.payload,
+        isFetching: false,
+        error: ""
+      };
+
+    case FETCH_RECIPES_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        isFetching: false
       };
 
     case FETCH_RECIPE_SUCCESS:

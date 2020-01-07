@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { fetchRecipes } from "../actions/actions";
 import RecipeCard from "../components/RecipeCard";
 
 const RecipeCardContainer = props => {
   /* Need to add data to map*/
+  useEffect(() => {
+    props.fetchRecipes(1);
+  }, []);
+
   return (
     <div>
-      <RecipeCard />
+      {props.recipes.map((recipe, index) => (
+        <RecipeCard key={index} recipe={recipe} />
+      ))}
     </div>
   );
 };
 
-export default RecipeCardContainer;
+const mapStatetoProps = state => {
+  return {
+    recipes: state.displayedRecipes,
+    isFetching: state.isFetching
+  };
+};
+
+export default connect(mapStatetoProps, { fetchRecipes })(RecipeCardContainer);

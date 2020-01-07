@@ -1,6 +1,7 @@
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { FETCH_RECIPES_BY_NAME_SUCCESS, FETCH_RECIPES_BY_NAME_FAIL } from ".";
 
 //=== GENERAL ACTIONS ===//
 export const FETCH_INITIALIZE = "FETCH_INITIALIZE";
@@ -8,6 +9,11 @@ export const POST_INITIALIZE = "POST_INITIALIZE";
 export const EDIT_INITIALIZE = "EDIT_INITIALIZE";
 export const EDIT_CANCEL = "EDIT_CANCEL";
 export const DELETE_INITIALIZE = "DELETE_INITIALIZE";
+
+//==== RECIPES FETCH ACTIONS ====//
+// return list of recipes from chef
+export const FETCH_RECIPES_SUCCESS = "FETCH_RECIPES_SUCCESS";
+export const FETCH_RECIPES_FAILURE = "FETCH_RECIPES_FAILURE";
 
 //==== RECIPE FETCH ACTIONS ====//
 export const FETCH_RECIPE_SUCCESS = "FETCH_RECIPE_SUCCESS";
@@ -147,6 +153,23 @@ export const fetchRecipe = chefID => dispatch => {
       });
       toast.error(err.message);
     });
+};
+
+export const fetchRecipes = chefID => dispatch => {
+  dispatch({ type: FETCH_INITIALIZE });
+
+  axios.get(`chef/${chefID}`).then(res => {
+    dispatch({
+      type: FETCH_RECIPES_SUCCESS,
+      payload: res.data.recipes
+    }).catch(err => {
+      dispatch({
+        type: FETCH_RECIPES_FAILURE,
+        payload: err.message
+      });
+      toast.error(err.message);
+    });
+  });
 };
 
 export const initializeEditRecipe = () => dispatch => {

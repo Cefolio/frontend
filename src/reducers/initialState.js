@@ -7,7 +7,7 @@ const initialState = {
   //   location: "",
   //   phone: ""
   // },
-  // displayedRecipes: [],
+  displayedRecipes: [],
   isFetching: false,
   error: "",
   isEditing: false,
