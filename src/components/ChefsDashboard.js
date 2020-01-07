@@ -4,13 +4,11 @@ import SearchForm from "./SearchForm";
 import NewRecipeForm from "./NewRecipeForm";
 
 export default class ChefsDashboard extends Component {
-  
   render() {
-    const token = localStorage.getItem('token');
     return (
       <div>
         <SearchForm />
-        {token != null ? <NewRecipeForm /> : <div></div>}
+        <NewRecipeForm />
         <RecipeCardContainer />
       </div>
     );
