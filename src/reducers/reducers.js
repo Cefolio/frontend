@@ -1,11 +1,15 @@
-import initialState from './initialState';
+import initialState from "./initialState";
 import {
-    //=== GENERAL ACTIONS ===//
+  //=== GENERAL ACTIONS ===//
   FETCH_INITIALIZE,
   POST_INITIALIZE,
   EDIT_INITIALIZE,
   EDIT_CANCEL,
   DELETE_INITIALIZE,
+
+  //==== RECIPES FETCH ACTIONS ====//
+  FETCH_RECIPES_SUCCESS,
+  FETCH_RECIPES_FAILURE,
 
   //==== RECIPE FETCH ACTIONS ====//
   FETCH_RECIPE_SUCCESS,
@@ -23,6 +27,10 @@ import {
   DELETE_RECIPE_SUCCESS,
   DELETE_RECIPE_FAILURE,
 
+  //==== CHEFS FETCH ACTIONS ====//
+  FETCH_CHEFS_SUCCESS,
+  FETCH_CHEFS_FAILURE,
+
   //==== CHEF FETCH ACTIONS ====//
   FETCH_CHEF_SUCCESS,
   FETCH_CHEF_FAILURE,
@@ -33,61 +41,76 @@ import {
 
   // ==== CHEF POST ACTIONS ====//
   POST_CHEF_SUCCESS,
-  POST_CHEF_FAILURE,
-} from '../actions/actions';
+  POST_CHEF_FAILURE
+} from "../actions/actions";
 
 const mainReducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case FETCH_INITIALIZE:
       return {
         ...state,
         isFetching: true,
-        error: ''
-      }
+        error: ""
+      };
 
-      // Might need to change this
+    // Might need to change this
     case POST_INITIALIZE:
       return {
         ...state,
         isFetching: true,
-        error: ''
-      }
+        error: ""
+      };
 
     case EDIT_INITIALIZE:
       return {
         ...state,
         isEditing: true,
-        error: ''
-      }
+        error: ""
+      };
 
     case EDIT_CANCEL:
       return {
         ...state,
         isFetching: false,
-        error: '',
+        error: "",
         isEditing: false
-      }
-    
+      };
+
     case DELETE_INITIALIZE:
       return {
         ...state,
         isDeleting: true,
-        error: ''
-      }
+        error: ""
+      };
+
+    case FETCH_RECIPES_SUCCESS:
+      return {
+        ...state,
+        displayedRecipes: action.payload,
+        isFetching: false,
+        error: ""
+      };
+
+    case FETCH_RECIPES_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        isFetching: false
+      };
 
     case FETCH_RECIPE_SUCCESS:
       return {
         ...state,
         displayedRecipes: action.payload,
         isFetching: false,
-        error: ''
-      }
+        error: ""
+      };
 
     case FETCH_RECIPE_FAILURE:
       return {
         ...state,
-        error: action.payload,
-      }
+        error: action.payload
+      };
 
     case EDIT_RECIPE_SUCCESS:
       return {
@@ -95,96 +118,110 @@ const mainReducer = (state = initialState, action) => {
         isFetching: false,
         isEditing: false,
         isSubmitting: true,
-        error: ''
-      }
+        error: ""
+      };
 
     case EDIT_RECIPE_FAILURE:
       return {
         ...state,
         isEditing: false,
         error: action.payload
-      }
+      };
 
     case POST_RECIPE_SUCCESS:
       return {
         ...state,
         isEditing: false,
         isSubmitting: true,
-        error: ''
-      }
+        error: ""
+      };
 
     case POST_RECIPE_FAILURE:
       return {
         ...state,
         error: action.payload,
         isSubmitting: false
-      }
+      };
 
     case DELETE_RECIPE_SUCCESS:
       return {
         ...state,
-        error: '',
+        error: "",
         isDeleting: false,
         isSubmitting: true
-      }
+      };
 
     case DELETE_RECIPE_FAILURE:
       return {
         ...state,
         error: action.payload,
         isSubmitting: false
-      }
+      };
+
+    case FETCH_CHEFS_SUCCESS:
+      return {
+        ...state,
+        chefs: action.payload,
+        isFetching: false
+      };
+
+    case FETCH_CHEFS_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        isFetching: false
+      };
 
     // May need to change this
     case FETCH_CHEF_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        error: '',
+        error: "",
         chef: action.payload
-      }
+      };
 
     case FETCH_CHEF_FAILURE:
       return {
         ...state,
         error: action.payload,
-        isFetching: false,
-      }
+        isFetching: false
+      };
 
     case EDIT_CHEF_SUCCESS:
       return {
         ...state,
-        error: '',
+        error: "",
         isEditing: false,
         isSubmitting: true
-      }
+      };
 
     case EDIT_CHEF_FAILURE:
       return {
         ...state,
         error: action.payload,
         isSubmitting: false
-      }
+      };
 
     case POST_CHEF_SUCCESS:
       return {
         ...state,
-        error: '',
+        error: "",
         isSubmitting: true,
         isEditing: false,
         isFetching: false
-      }
+      };
 
     case POST_CHEF_FAILURE:
       return {
         ...state,
         error: action.payload,
         isSubmitting: false
-      }
+      };
 
     default:
       return state;
   }
-}
+};
 
 export default mainReducer;
