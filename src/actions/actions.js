@@ -1,4 +1,5 @@
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import axios from "axios";
 import { toast } from "react-toastify";
 
 //=== GENERAL ACTIONS ===//
@@ -24,6 +25,11 @@ export const POST_RECIPE_FAILURE = "POST_RECIPE_FAILURE";
 export const DELETE_RECIPE_SUCCESS = "DELETE_RECIPE_SUCCESS";
 export const DELETE_RECIPE_FAILURE = "DELETE_RECIPE_FAILURE";
 
+//==== CHEFS FETCH ACTIONS ====//
+// return list of all chefs
+export const FETCH_CHEFS_SUCCESS = "FETCH_CHEFS_SUCCESS";
+export const FETCH_CHEFS_FAILURE = "FETCH_CHEFS_FAILURE";
+
 //==== CHEF FETCH ACTIONS ====//
 export const FETCH_CHEF_SUCCESS = "FETCH_CHEF_SUCCESS";
 export const FETCH_CHEF_FAILURE = "FETCH_CHEF_FAILURE";
@@ -45,16 +51,16 @@ export const addChef = chefID => dispatch => {
       dispatch({
         type: POST_CHEF_SUCCESS,
         payload: res.data.chef
-      })
+      });
     })
     .catch(err => {
       dispatch({
         type: POST_CHEF_FAILURE,
         payload: { err, message: err.message }
-      })
+      });
       toast.error(err.message);
-    })
-}
+    });
+};
 
 // Added for Nav
 export const fetchChef = chefID => dispatch => {
@@ -78,6 +84,23 @@ export const fetchChef = chefID => dispatch => {
     });
 };
 
+export const fetchChefs = () => dispatch => {
+  dispatch({ type: FETCH_INITIALIZE });
+
+  axios.get("/chefs").then(res => {
+    dispatch({
+      type: FETCH_CHEFS_SUCCESS,
+      payload: res.data.chefs
+    }).catch(err => {
+      dispatch({
+        type: FETCH_CHEFS_FAILURE,
+        payload: err.message
+      });
+      toast.error(err.message);
+    });
+  });
+};
+
 export const initializeEditChef = () => dispatch => {
   dispatch({ type: EDIT_INITIALIZE });
 };
@@ -87,7 +110,7 @@ export const cancelEditChef = () => dispatch => {
 };
 
 export const editChef = chefID => dispatch => {
-    // revist when backend if complete
+  // revist when backend if complete
   axiosWithAuth()
     .put(`/chef/${chefID}`)
     .then(res => {
@@ -135,7 +158,7 @@ export const cancelEditRecipe = () => dispatch => {
 };
 
 export const editRecipe = recipeID => dispatch => {
-    // revist when backend if complete
+  // revist when backend if complete
   axiosWithAuth()
     .put(`recipe/${recipeID}`)
     .then(res => {
@@ -161,13 +184,13 @@ export const deleteRecipe = recipeID => dispatch => {
     .then(res => {
       dispatch({
         type: DELETE_RECIPE_SUCCESS
-      })
+      });
     })
     .catch(err => {
       dispatch({
         type: DELETE_RECIPE_FAILURE,
         payload: { err, message: err.message }
-      })
+      });
       toast.error(err.message);
-    })
-}
+    });
+};
