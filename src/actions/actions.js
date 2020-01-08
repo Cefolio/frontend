@@ -54,7 +54,7 @@ export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 
-export const registerUser = user => dispatch => {
+export const registerUser = (user, props) => dispatch => {
   dispatch({ typs: POST_INITIALIZE });
 
   axiosWithAuth()
@@ -64,12 +64,14 @@ export const registerUser = user => dispatch => {
         type: POST_CHEF_SUCCESS
       });
       console.log("Register:", res);
+      props.history.push("/login");
     })
     .catch(err => {
       dispatch({
         type: POST_CHEF_FAILURE,
         payload: { err, message: err.message }
       });
+      console.log("Error: ", err);
       toast.error(err.message);
     });
 };
@@ -211,12 +213,12 @@ export const deleteRecipe = recipeID => dispatch => {
     });
 };
 
-export const login = chefID => dispatch => {
+export const login = user => dispatch => {
   dispatch({ type: LOGIN_START });
 
   axiosWithAuth()
     // Might need to edit endpoint
-    .post(`/users/login`, chefID)
+    .post("/users/login", user)
     .then(res => {
       dispatch({
         type: LOGIN_SUCCESS,
