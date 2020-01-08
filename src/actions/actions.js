@@ -53,11 +53,11 @@ export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 
-export const addChef = chefID => dispatch => {
+export const addChef = () => dispatch => {
   dispatch({ typs: POST_INITIALIZE });
 
   axiosWithAuth()
-    .post(`/users/registration${chefID}`)
+    .post(`/users/registration`)
     .then(res => {
       dispatch({
         type: POST_CHEF_SUCCESS,
@@ -95,22 +95,22 @@ export const fetchChef = chefID => dispatch => {
     });
 };
 
-// export const fetchChefs = () => dispatch => {
-//   dispatch({ type: FETCH_INITIALIZE });
+export const fetchChefs = () => dispatch => {
+  dispatch({ type: FETCH_INITIALIZE });
 
-//   axios.get("/chefs").then(res => {
-//     dispatch({
-//       type: FETCH_CHEFS_SUCCESS,
-//       payload: res.data.chefs
-//     }).catch(err => {
-//       dispatch({
-//         type: FETCH_CHEFS_FAILURE,
-//         payload: err.message
-//       });
-//       toast.error(err.message);
-//     });
-//   });
-// };
+  axios.get("/chefs").then(res => {
+    dispatch({
+      type: FETCH_CHEFS_SUCCESS,
+      payload: res.data.chefs
+    }).catch(err => {
+      dispatch({
+        type: FETCH_CHEFS_FAILURE,
+        payload: err.message
+      });
+      toast.error(err.message);
+    });
+  });
+};
 
 export const initializeEditChef = () => dispatch => {
   dispatch({ type: EDIT_INITIALIZE });
@@ -160,22 +160,22 @@ export const fetchRecipe = chefID => dispatch => {
     });
 };
 
-// export const fetchRecipes = chefID => dispatch => {
-//   dispatch({ type: FETCH_INITIALIZE });
+export const fetchRecipes = chefID => dispatch => {
+  dispatch({ type: FETCH_INITIALIZE });
 
-//   axios.get(`chef/${chefID}`).then(res => {
-//     dispatch({
-//       type: FETCH_RECIPES_SUCCESS,
-//       payload: res.data.recipes
-//     }).catch(err => {
-//       dispatch({
-//         type: FETCH_RECIPES_FAILURE,
-//         payload: err.message
-//       });
-//       toast.error(err.message);
-//     });
-//   });
-// };
+  axios.get(`chef/${chefID}`).then(res => {
+    dispatch({
+      type: FETCH_RECIPES_SUCCESS,
+      payload: res.data.recipes
+    }).catch(err => {
+      dispatch({
+        type: FETCH_RECIPES_FAILURE,
+        payload: err.message
+      });
+      toast.error(err.message);
+    });
+  });
+};
 
 export const initializeEditRecipe = () => dispatch => {
   dispatch({ type: EDIT_INITIALIZE });
@@ -186,7 +186,6 @@ export const cancelEditRecipe = () => dispatch => {
 };
 
 export const editRecipe = recipeID => dispatch => {
-  // revist when backend if complete
   axiosWithAuth()
     .put(`recipes/${recipeID}`)
     .then(res => {
@@ -223,12 +222,12 @@ export const deleteRecipe = recipeID => dispatch => {
     });
 };
 
-export const login = userID => dispatch => {
+export const login = chefID => dispatch => {
   dispatch({ type: LOGIN_START });
 
   axiosWithAuth()
   // Might need to edit endpoint
-    .get(`/users/login/${userID}`)
+    .post(`/users/login`, chefID)
     .then(res => {
       dispatch({
         type: LOGIN_SUCCESS,
