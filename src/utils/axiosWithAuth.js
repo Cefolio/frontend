@@ -2,9 +2,8 @@ import axios from "axios";
 
 export const axiosWithAuth = () => {
   const token = localStorage.getItem("token");
-  /* TODO: Need to update baseUrl*/
   return axios.create({
-    baseURL: "",
+    baseURL: "https://chefmode.herokuapp.com/",
     headers: {
       Authorization: token
     }
