@@ -11,9 +11,8 @@ const ChefCardContainer = props => {
 
   return (
     <div>
-      {props.chefs.map((chef, index) => (
-        <ChefCard key={index} chef={chef} />
-      ))}
+      {props.chefs &&
+        props.chefs.map((chef, index) => <ChefCard key={index} chef={chef} />)}
     </div>
   );
 };

@@ -1,8 +1,10 @@
-import React, { useEffect, useRef} from "react";
+import React, { useEffect, useRef } from "react";
 import { withFormik, Form, Field } from "formik";
 import * as yup from "yup";
+import { connect } from "react-redux";
+import { login } from "../actions/actions";
 
-import {TweenMax, Power3} from 'gsap';
+import { TweenMax, Power3 } from "gsap";
 
 function LoginForm({ errors, touched }) {
   let logoItem = useRef(null);
@@ -10,21 +12,22 @@ function LoginForm({ errors, touched }) {
   console.log(logoItem);
   useEffect(() => {
     console.log(logoItem);
-    TweenMax.to(
-        logoItem,
-        .8,
-        {
-            opacity: 1,
-            y: -20,
-            ease: Power3.easeOut
-        }
-    )
-    
-}, [])
+    TweenMax.to(logoItem, 0.8, {
+      opacity: 1,
+      y: -20,
+      ease: Power3.easeOut
+    });
+  }, []);
   return (
     <div>
       <Form>
-        <h1 ref={el => {logoItem = el}}>Sign In</h1>
+        <h1
+          ref={el => {
+            logoItem = el;
+          }}
+        >
+          Sign In
+        </h1>
         <Field type="text" name="username" placeholder="Username" />
 
         <div>
@@ -73,6 +76,8 @@ const FormikLoginForm = withFormik({
   //====================
   handleSubmit(values) {
     //HTTP request will be here once backend is done
+    login(values);
   }
 })(LoginForm);
-export default FormikLoginForm;
+
+export default connect(null, { login })(FormikLoginForm);

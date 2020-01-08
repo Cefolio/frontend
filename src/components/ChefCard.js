@@ -6,11 +6,12 @@ const ChefCard = props => {
   return (
     <>
       {/* Need to update once have data */}
-      <Link to="/chef/1">
-        <h1>Chef Name</h1>
-        <p>Location</p>
-        <p>Email</p>
-        <p>Phone</p>
+      <Link to={`/users/${props.chef.id}`}>
+        <h1>{props.chef.name}</h1>
+        <p>{props.chef.location}</p>
+        <p>{props.chef.email}</p>
+        <p>{props.chef.phone_number}</p>
+        <p>{props.chef.bio}</p>
       </Link>
     </>
   );

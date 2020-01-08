@@ -1,16 +1,18 @@
 const initialState = {
   chefs: [],
-  // chef: {
-  //   id: "",
-  //   name: "",
-  //   email: "",
-  //   location: "",
-  //   phone: ""
-  // },
+  chef: {
+    id: "",
+    username: "",
+    name: "",
+    password: "",
+    email: "",
+    phone_number: "",
+    location: "",
+    bio: ""
+  },
   displayedRecipes: [],
   isFetching: false,
   error: "",
-  isEditing: false,
   isSubmitting: false,
   isDeleting: false,
   isLoggedIn: false

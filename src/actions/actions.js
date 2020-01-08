@@ -6,12 +6,11 @@ import { toast } from "react-toastify";
 //=== GENERAL ACTIONS ===//
 export const FETCH_INITIALIZE = "FETCH_INITIALIZE";
 export const POST_INITIALIZE = "POST_INITIALIZE";
-export const EDIT_INITIALIZE = "EDIT_INITIALIZE";
-export const EDIT_CANCEL = "EDIT_CANCEL";
 export const DELETE_INITIALIZE = "DELETE_INITIALIZE";
 
 //==== RECIPES FETCH ACTIONS ====//
 // return list of recipes from chef
+// recipes/usr/:id endpoint
 export const FETCH_RECIPES_SUCCESS = "FETCH_RECIPES_SUCCESS";
 export const FETCH_RECIPES_FAILURE = "FETCH_RECIPES_FAILURE";
 
@@ -33,10 +32,12 @@ export const DELETE_RECIPE_FAILURE = "DELETE_RECIPE_FAILURE";
 
 //==== CHEFS FETCH ACTIONS ====//
 // return list of all chefs
+// /users endpoint
 export const FETCH_CHEFS_SUCCESS = "FETCH_CHEFS_SUCCESS";
 export const FETCH_CHEFS_FAILURE = "FETCH_CHEFS_FAILURE";
 
 //==== CHEF FETCH ACTIONS ====//
+// users/:id endpoint
 export const FETCH_CHEF_SUCCESS = "FETCH_CHEF_SUCCESS";
 export const FETCH_CHEF_FAILURE = "FETCH_CHEF_FAILURE";
 
@@ -53,22 +54,24 @@ export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 
-export const addChef = () => dispatch => {
+export const registerUser = (user, props) => dispatch => {
   dispatch({ typs: POST_INITIALIZE });
 
   axiosWithAuth()
-    .post(`/users/registration`)
+    .post(`/users/registration`, user)
     .then(res => {
       dispatch({
-        type: POST_CHEF_SUCCESS,
-        payload: res.data.chef
+        type: POST_CHEF_SUCCESS
       });
+      console.log("Register:", res);
+      props.history.push("/login");
     })
     .catch(err => {
       dispatch({
         type: POST_CHEF_FAILURE,
         payload: { err, message: err.message }
       });
+      console.log("Error: ", err);
       toast.error(err.message);
     });
 };
@@ -83,7 +86,7 @@ export const fetchChef = chefID => dispatch => {
       // update based on documentation
       dispatch({
         type: FETCH_CHEF_SUCCESS,
-        payload: res.data.chef
+        payload: res.data
       });
     })
     .catch(err => {
@@ -98,26 +101,22 @@ export const fetchChef = chefID => dispatch => {
 export const fetchChefs = () => dispatch => {
   dispatch({ type: FETCH_INITIALIZE });
 
-  axios.get("/chefs").then(res => {
-    dispatch({
-      type: FETCH_CHEFS_SUCCESS,
-      payload: res.data.chefs
-    }).catch(err => {
+  axios
+    .get("https://chefmode.herokuapp.com/users")
+    .then(res => {
+      dispatch({
+        type: FETCH_CHEFS_SUCCESS,
+        payload: res.data
+      });
+      console.log(res);
+    })
+    .catch(err => {
       dispatch({
         type: FETCH_CHEFS_FAILURE,
         payload: err.message
       });
       toast.error(err.message);
     });
-  });
-};
-
-export const initializeEditChef = () => dispatch => {
-  dispatch({ type: EDIT_INITIALIZE });
-};
-
-export const cancelEditChef = () => dispatch => {
-  dispatch({ type: EDIT_CANCEL });
 };
 
 export const editChef = chefID => dispatch => {
@@ -177,14 +176,6 @@ export const fetchRecipes = chefID => dispatch => {
   });
 };
 
-export const initializeEditRecipe = () => dispatch => {
-  dispatch({ type: EDIT_INITIALIZE });
-};
-
-export const cancelEditRecipe = () => dispatch => {
-  dispatch({ type: EDIT_CANCEL });
-};
-
 export const editRecipe = recipeID => dispatch => {
   axiosWithAuth()
     .put(`recipes/${recipeID}`)
@@ -222,23 +213,23 @@ export const deleteRecipe = recipeID => dispatch => {
     });
 };
 
-export const login = chefID => dispatch => {
+export const login = user => dispatch => {
   dispatch({ type: LOGIN_START });
 
   axiosWithAuth()
-  // Might need to edit endpoint
-    .post(`/users/login`, chefID)
+    // Might need to edit endpoint
+    .post("/users/login", user)
     .then(res => {
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data
-      })
+      });
     })
     .catch(err => {
       dispatch({
         type: LOGIN_FAIL,
         payload: { err, message: err.message }
-      })
+      });
       console.error(err);
-    })
-}
+    });
+};
