@@ -8,8 +8,9 @@ import { Link } from 'react-router-dom';
 const RecipeCardPage = props => {
 
   const [recipe, setRecipe] = useState({
-    id: '',
-    mealType: '',
+    title: '',
+    user_id: '',
+    meal_type: '',
     ingredients: '',
     img: ''
   })
