@@ -3,8 +3,6 @@ import {
   //=== GENERAL ACTIONS ===//
   FETCH_INITIALIZE,
   POST_INITIALIZE,
-  EDIT_INITIALIZE,
-  EDIT_CANCEL,
   DELETE_INITIALIZE,
 
   //==== RECIPES FETCH ACTIONS ====//
@@ -59,21 +57,6 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         isFetching: true,
         error: ""
-      };
-
-    case EDIT_INITIALIZE:
-      return {
-        ...state,
-        isEditing: true,
-        error: ""
-      };
-
-    case EDIT_CANCEL:
-      return {
-        ...state,
-        isFetching: false,
-        error: "",
-        isEditing: false
       };
 
     case DELETE_INITIALIZE:
@@ -207,9 +190,7 @@ const mainReducer = (state = initialState, action) => {
       return {
         ...state,
         error: "",
-        isSubmitting: true,
-        isEditing: false,
-        isFetching: false
+        isSubmitting: false
       };
 
     case POST_CHEF_FAILURE:
