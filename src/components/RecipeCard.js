@@ -20,10 +20,12 @@ gsap.from('.recipe-card', {
 const RecipeCard = props => {
 
   const [recipe, setRecipe] = useState({
-    id: '',
-    mealType: '',
+    title: '',
+    user_id: '',
+    meal_type: '',
     ingredients: '',
-    img: ''
+    img: '',
+    instructions: ''
   })
 
   const [chef, setChef] = useState({

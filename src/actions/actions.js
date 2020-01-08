@@ -1,7 +1,7 @@
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-import axios from "axios";
+// import axios from "axios";
 import { toast } from "react-toastify";
-import { FETCH_RECIPES_BY_NAME_SUCCESS, FETCH_RECIPES_BY_NAME_FAIL } from ".";
+// import { FETCH_RECIPES_BY_NAME_SUCCESS, FETCH_RECIPES_BY_NAME_FAIL } from ".";
 
 //=== GENERAL ACTIONS ===//
 export const FETCH_INITIALIZE = "FETCH_INITIALIZE";
@@ -48,11 +48,16 @@ export const EDIT_CHEF_FAILURE = "EDIT_CHEF_FAILURE";
 export const POST_CHEF_SUCCESS = "POST_CHEF_SUCCESS";
 export const POST_CHEF_FAILURE = "POST_CHEF_FAILURE";
 
-export const addChef = chefID => dispatch => {
+// === CHEF LOGIN ===//
+export const LOGIN_START = "LOGIN_START";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+
+export const addChef = () => dispatch => {
   dispatch({ typs: POST_INITIALIZE });
 
   axiosWithAuth()
-    .post(`/chef/${chefID}`)
+    .post(`/users/registration`)
     .then(res => {
       dispatch({
         type: POST_CHEF_SUCCESS,
@@ -73,7 +78,7 @@ export const fetchChef = chefID => dispatch => {
   dispatch({ type: FETCH_INITIALIZE });
 
   axiosWithAuth()
-    .get(`/dashboard/${chefID}`)
+    .get(`/users/${chefID}`)
     .then(res => {
       // update based on documentation
       dispatch({
@@ -118,7 +123,7 @@ export const cancelEditChef = () => dispatch => {
 export const editChef = chefID => dispatch => {
   // revist when backend if complete
   axiosWithAuth()
-    .put(`/chef/${chefID}`)
+    .put(`/users/${chefID}`)
     .then(res => {
       dispatch({
         type: EDIT_CHEF_SUCCESS,
@@ -181,9 +186,8 @@ export const cancelEditRecipe = () => dispatch => {
 };
 
 export const editRecipe = recipeID => dispatch => {
-  // revist when backend if complete
   axiosWithAuth()
-    .put(`recipe/${recipeID}`)
+    .put(`recipes/${recipeID}`)
     .then(res => {
       dispatch({
         type: EDIT_RECIPE_SUCCESS,
@@ -203,7 +207,7 @@ export const deleteRecipe = recipeID => dispatch => {
   dispatch({ type: DELETE_INITIALIZE });
 
   axiosWithAuth()
-    .delete(`/recipe/${recipeID}`)
+    .delete(`/recipes/${recipeID}`)
     .then(res => {
       dispatch({
         type: DELETE_RECIPE_SUCCESS
@@ -217,3 +221,24 @@ export const deleteRecipe = recipeID => dispatch => {
       toast.error(err.message);
     });
 };
+
+export const login = chefID => dispatch => {
+  dispatch({ type: LOGIN_START });
+
+  axiosWithAuth()
+  // Might need to edit endpoint
+    .post(`/users/login`, chefID)
+    .then(res => {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data
+      })
+    })
+    .catch(err => {
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: { err, message: err.message }
+      })
+      console.error(err);
+    })
+}
