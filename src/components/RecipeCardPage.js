@@ -7,25 +7,31 @@ import { Link } from 'react-router-dom';
 
 const RecipeCardPage = props => {
 
-  const [recipe, setRecipe] = useState({
-    title: '',
-    user_id: '',
-    meal_type: '',
-    ingredients: '',
-    img: ''
-  })
+  // const [recipe, setRecipe] = useState({
+  //   title: '',
+  //   user_id: '',
+  //   meal_type: '',
+  //   ingredients: '',
+  //   img: ''
+  // })
 
-  const [chef, setChef] = useState({
-    name: ''
-  });
+  // const [chef, setChef] = useState({
+  //   name: ''
+  // });
 
   useEffect(() => {
-    props.fetchRecipe();
-    props.fetchChef();
-    setRecipe(props.recipe)
-    setChef(props.chef.name)
-  }, [props.recipe, props.chef])
+    props.fetchRecipe(props.match.params.id);
+    // props.fetchChef(props.recipe.user_id);
+    // setRecipe(props.recipe)
+    // setChef(props.chef.name)
+  }, [])
 
+  useEffect(() => {
+    props.fetchChef(props.recipe.user_id);
+  }, [props.recipe]);
+
+  console.log("RecipeCardPage Props:", props);
+  console.log("Props.Recipe.User_ID", props.recipe.user_id);
   // const [recipe, setRecipe] = useState({
   //   id: '',
   //   mealType: '',
@@ -48,29 +54,24 @@ const RecipeCardPage = props => {
 
   return (
     <div className="recipe-card">
-      {recipe.map(recipe => {
-        return(
         <div> 
-          {/* RecipeCard component has button - not needed here */}
-          {/* <RecipeCard recipe={recipe} /> */}
-          <img src={recipe.img} alt={recipe.title} />
-          <h2>{recipe.title}</h2>
-          <p>Meal Type: {recipe.mealType}</p>
-          <p>Chef Name: {chef.name}</p>
-          <p>Ingredients: {recipe.ingredients}</p>
-          <p className="recipe-card">Instructions: {recipe.instructions}</p>
+          <img src={props.recipe.img} alt={props.recipe.title} />
+          <h2>{props.recipe.title}</h2>
+          <p>Meal Type: {props.recipe.meal_type}</p>
+          <p>Chef Name: {props.chef.name}</p>
+          <p>Ingredients: {props.recipe.ingredients}</p>
+          <p>Instructions: {props.recipe.instructions}</p>
 
           {localStorage.getItem('token') ?
-            <Link to={`/dashboard/${props.chef.id}`} className="recipe-buttons">
+            <Link to={`/dashboard/`} className="recipe-buttons">
               Back to Recipes
             </Link>
             :
-            <Link to={`/recipes`} className="recipe-buttons">
+            <Link to={`/chef/${props.chef.id}`} className="recipe-buttons">
               Back to Recipes
             </Link>
           }
-        </div>)
-      })}
+        </div>
     </div>
   )
 }
@@ -78,7 +79,6 @@ const RecipeCardPage = props => {
 const mapStateToProps = state => {
   return {
     recipe: state.recipe,
-    displayedRecipes: state.displayedRecipes,
     chef: state.chef,
     isFetching: state.isFetching
   }

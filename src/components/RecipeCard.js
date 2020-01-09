@@ -9,7 +9,7 @@ import '../css/RecipeCard.scss';
 
 const RecipeCard = props => {
   return (
-    <div>
+    <div id={props.recipe.user_id}>
       <Link to={`/recipe/${props.recipe.id}`}>
         <img src={props.recipe.img} alt={props.recipe.title} />
         <h2>{props.recipe.title}</h2>

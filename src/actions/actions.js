@@ -83,7 +83,7 @@ export const fetchChef = chefID => dispatch => {
   axiosWithAuth()
     .get(`/users/${chefID}`)
     .then(res => {
-      // update based on documentation
+      console.log("fetchChef Success", res);
       dispatch({
         type: FETCH_CHEF_SUCCESS,
         payload: res.data
@@ -137,16 +137,15 @@ export const editChef = chefID => dispatch => {
     });
 };
 
-export const fetchRecipe = chefID => dispatch => {
+export const fetchRecipe = recipeID => dispatch => {
   dispatch({ type: FETCH_INITIALIZE });
 
   axiosWithAuth()
-    .get(`/recipes/${chefID}`)
+    .get(`/recipes/${recipeID}`)
     .then(res => {
-      // update based on documentation
       dispatch({
         type: FETCH_RECIPE_SUCCESS,
-        payload: res.data.recipes
+        payload: res.data
       });
     })
     .catch(err => {
