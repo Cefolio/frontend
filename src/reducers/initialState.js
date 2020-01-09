@@ -1,18 +1,21 @@
 const initialState = {
+  chefs: [],
   chef: {
     id: "",
-    isLoggedIn: false,
+    username: "",
     name: "",
+    password: "",
     email: "",
+    phone_number: "",
     location: "",
-    phone: ""
+    bio: ""
   },
   displayedRecipes: [],
   isFetching: false,
   error: "",
-  isEditing: false,
   isSubmitting: false,
-  isDeleting: false
+  isDeleting: false,
+  isLoggedIn: false
 };
 
 export default initialState;
