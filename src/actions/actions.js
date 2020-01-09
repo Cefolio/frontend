@@ -159,21 +159,25 @@ export const fetchRecipe = chefID => dispatch => {
     });
 };
 
-export const fetchRecipes = chefID => dispatch => {
+export const fetchRecipes = userID => dispatch => {
   dispatch({ type: FETCH_INITIALIZE });
 
-  axios.get(`chef/${chefID}`).then(res => {
-    dispatch({
-      type: FETCH_RECIPES_SUCCESS,
-      payload: res.data.recipes
-    }).catch(err => {
+  axios
+    .get(`/recipes/usr/${userID}`)
+    .then(res => {
+      console.log("Recipes:", res);
+      // dispatch({
+      //   type: FETCH_RECIPES_SUCCESS,
+      //   payload: res.data.recipes
+      // });
+    })
+    .catch(err => {
       dispatch({
         type: FETCH_RECIPES_FAILURE,
         payload: err.message
       });
       toast.error(err.message);
     });
-  });
 };
 
 export const editRecipe = recipeID => dispatch => {
