@@ -7,7 +7,7 @@ export default class ChefRecipePage extends Component {
     return (
       <div>
         <SearchForm />
-        <RecipeCardContainer />
+        <RecipeCardContainer id={this.props.match.params.id} />
       </div>
     );
   }
