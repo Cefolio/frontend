@@ -108,7 +108,6 @@ export const fetchChefs = () => dispatch => {
         type: FETCH_CHEFS_SUCCESS,
         payload: res.data
       });
-      console.log(res);
     })
     .catch(err => {
       dispatch({
@@ -159,21 +158,26 @@ export const fetchRecipe = chefID => dispatch => {
     });
 };
 
-export const fetchRecipes = chefID => dispatch => {
+export const fetchRecipes = userID => dispatch => {
   dispatch({ type: FETCH_INITIALIZE });
 
-  axios.get(`chef/${chefID}`).then(res => {
-    dispatch({
-      type: FETCH_RECIPES_SUCCESS,
-      payload: res.data.recipes
-    }).catch(err => {
+  axios
+    .get(`https://chefmode.herokuapp.com/recipes/usr/${userID}`)
+    .then(res => {
+      console.log("Recipes:", res);
+      dispatch({
+        type: FETCH_RECIPES_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      console.log("Failed Recipes", err.message);
       dispatch({
         type: FETCH_RECIPES_FAILURE,
         payload: err.message
       });
       toast.error(err.message);
     });
-  });
 };
 
 export const editRecipe = recipeID => dispatch => {
@@ -213,7 +217,7 @@ export const deleteRecipe = recipeID => dispatch => {
     });
 };
 
-export const login = user => dispatch => {
+export const login = (user, props) => dispatch => {
   dispatch({ type: LOGIN_START });
 
   axiosWithAuth()
@@ -224,6 +228,8 @@ export const login = user => dispatch => {
         type: LOGIN_SUCCESS,
         payload: res.data
       });
+      localStorage.setItem("token", res.data.token);
+      props.history.push("/dashboard");
     })
     .catch(err => {
       dispatch({

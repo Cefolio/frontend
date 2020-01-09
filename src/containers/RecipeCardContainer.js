@@ -6,14 +6,17 @@ import RecipeCard from "../components/RecipeCard";
 const RecipeCardContainer = props => {
   /* Need to add data to map*/
   useEffect(() => {
-    props.fetchRecipes(1);
+    props.fetchRecipes(props.id);
   }, []);
+
+  console.log("recipecontainer", props);
 
   return (
     <div>
-      {props.recipes.map((recipe, index) => (
-        <RecipeCard key={index} recipe={recipe} />
-      ))}
+      {props.recipes &&
+        props.recipes.map((recipe, index) => (
+          <RecipeCard key={index} recipe={recipe} />
+        ))}
     </div>
   );
 };
