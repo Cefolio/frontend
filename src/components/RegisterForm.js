@@ -39,7 +39,41 @@ const UserForm = ({ onSubmit }) => {
         >
           Sign Up
         </h1>
-
+        <Field
+          className="input-field"
+          name="name"
+          type="text"
+          placeholder="Your First Name"
+        />
+        <ErrorMessage className="error-field" name="name" component="div" />
+        <Field
+          className="input-field"
+          name="email"
+          type="email"
+          placeholder="email"
+        />
+        <ErrorMessage className="error-field" name="email" component="div" />
+        <Field
+          className="input-field"
+          name="phone number"
+          type="text"
+          placeholder="Phone Number"
+        />
+        <ErrorMessage className="error-field" name="phone number" component="div" />
+        <Field
+          className="input-field"
+          name="location"
+          type="text"
+          placeholder="Location"
+        />
+        <ErrorMessage className="error-field" name="location" component="div" />
+        <Field
+          className="input-field"
+          name="bio"
+          type="text"
+          placeholder="Short bio"
+        />
+        <ErrorMessage className="error-field" name="bio" component="div" />
         <Field
           className="input-field"
           name="username"
