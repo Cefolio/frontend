@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchRecipe, fetchChef } from '../actions/actions';
 import { Link } from 'react-router-dom';
+import '../css/RecipeCardPage.scss';
 
 const RecipeCardPage = props => {
 
@@ -57,10 +58,22 @@ const RecipeCardPage = props => {
         <div> 
           <img src={props.recipe.img} alt={props.recipe.title} />
           <h2>{props.recipe.title}</h2>
-          <p>Meal Type: {props.recipe.meal_type}</p>
-          <p>Chef Name: {props.chef.name}</p>
-          <p>Ingredients: {props.recipe.ingredients}</p>
-          <p>Instructions: {props.recipe.instructions}</p>
+          <p>
+            <span className="recipe-card-font">Meal Type:</span> 
+              {props.recipe.meal_type}
+          </p>
+          <p>
+            <span className="recipe-card-font">Chef Name:</span> 
+              {props.chef.name}
+          </p>
+          <p>
+            <span className="recipe-card-font">Ingredients:</span>
+              {props.recipe.ingredients}
+          </p>
+          <p>
+            <span className="recipe-card-font">Instructions:</span> 
+              {props.recipe.instructions}
+          </p>
 
           {localStorage.getItem('token') ?
             <Link to={`/dashboard/`} className="recipe-buttons">

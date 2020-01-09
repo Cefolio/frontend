@@ -6,6 +6,19 @@
   background: #C5CBE3;
   box-shadow: 5px 5px 5px #000;
 
+  .recipe-link {
+    text-decoration: none;
+    color: black;
+  }
+
+  .recipe-link:hover {
+    color: #4056A1;
+  }
+
+  .recipe-font {
+    font-weight: bold;
+  }
+
   .recipe-buttons {
     box-shadow:inset 0px -3px 7px 0px #000;
     background:linear-gradient(to bottom, rgb(243, 84, 60) 5%, #F13C20 100%);
