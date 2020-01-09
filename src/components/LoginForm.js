@@ -1,7 +1,7 @@
 import React, { useEffect, useRef} from "react";
 import { withFormik, Form, Field } from "formik";
 import * as yup from "yup";
-
+import "../css/LoginForm.scss";
 import {TweenMax, Power3} from 'gsap';
 
 function LoginForm({ errors, touched }) {
@@ -23,15 +23,16 @@ function LoginForm({ errors, touched }) {
 }, [])
   return (
     <div classname= "form-2">
-      <Form>
-        <h1 ref={el => {logoItem = el}}>Sign In</h1>
-        <Field type="text" name="username" placeholder="Username" />
-
-        <div>
+      <Form className="float">
+        <h1 ref={el => {logoItem = el}} className="login-in">Sign In</h1>
+        <div className="float">
+        <Field  className= "log-in" type="text" name="username" placeholder="Username" />
+        </div>
+        <div className="float"> 
           {touched.password && errors.password && <p>{errors.password}</p>}
           <Field type="password" name="password" placeholder="Password" />
         </div>
-        <button>Login</button>
+        <button className="clearfix">Login</button>
       </Form>
     </div>
   );
