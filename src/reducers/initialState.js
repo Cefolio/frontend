@@ -11,6 +11,15 @@ const initialState = {
     bio: ""
   },
   displayedRecipes: [],
+  recipe: {
+    id: "",
+    title: "",
+    meal_type: "",
+    img: "",
+    ingredients: "",
+    instructions: "",
+    user_id: ""
+  },
   isFetching: false,
   error: "",
   isSubmitting: false,
