@@ -108,7 +108,6 @@ export const fetchChefs = () => dispatch => {
         type: FETCH_CHEFS_SUCCESS,
         payload: res.data
       });
-      console.log(res);
     })
     .catch(err => {
       dispatch({
@@ -163,15 +162,16 @@ export const fetchRecipes = userID => dispatch => {
   dispatch({ type: FETCH_INITIALIZE });
 
   axios
-    .get(`/recipes/usr/${userID}`)
+    .get(`https://chefmode.herokuapp.com/recipes/usr/${userID}`)
     .then(res => {
       console.log("Recipes:", res);
-      // dispatch({
-      //   type: FETCH_RECIPES_SUCCESS,
-      //   payload: res.data.recipes
-      // });
+      dispatch({
+        type: FETCH_RECIPES_SUCCESS,
+        payload: res.data
+      });
     })
     .catch(err => {
+      console.log("Failed Recipes", err.message);
       dispatch({
         type: FETCH_RECIPES_FAILURE,
         payload: err.message

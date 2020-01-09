@@ -6,7 +6,7 @@ const ChefCard = props => {
   return (
     <>
       {/* Need to update once have data */}
-      <Link to={`/users/${props.chef.id}`}>
+      <Link to={`/chef/${props.chef.id}`}>
         <h1>{props.chef.name}</h1>
         <p>{props.chef.location}</p>
         <p>{props.chef.email}</p>
