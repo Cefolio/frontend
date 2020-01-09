@@ -75,6 +75,16 @@ const UserForm = ({ signup, ...rest }) => {
                 placeholder="Location"
                 name="location"
                 />
+                {errors.phone && "Your phone number is needed"}
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  name="phone"/>
+                  {errors.bio && "Please enter a short bio"}
+                  <input
+                    type="text"
+                    placeholder="Bio"
+                    name="bio"/>
                 <div>
                   <button type="submit" diabled={!formState.isValid}> Create Account </button>
                 </div>
