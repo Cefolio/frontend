@@ -213,7 +213,7 @@ export const deleteRecipe = recipeID => dispatch => {
     });
 };
 
-export const login = user => dispatch => {
+export const login = (user, props) => dispatch => {
   dispatch({ type: LOGIN_START });
 
   axiosWithAuth()
@@ -224,6 +224,8 @@ export const login = user => dispatch => {
         type: LOGIN_SUCCESS,
         payload: res.data
       });
+      localStorage.setItem("token", res.data.token);
+      props.history.push("/dashboard");
     })
     .catch(err => {
       dispatch({
