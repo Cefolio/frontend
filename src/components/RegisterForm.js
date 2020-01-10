@@ -28,7 +28,14 @@ const UserForm = props => {
 
   return (
     <div>
-      <form on onSubmit={handleSubmit}>
+      {localStorage.getItem("token") ?
+        <h2>
+          Please Logout before you try to 
+          <br />
+          Register a New User...
+        </h2>
+        :
+        <form on onSubmit={handleSubmit}>
         <label>Name</label>
         <input
           type="text"
@@ -87,6 +94,7 @@ const UserForm = props => {
         />
         <button>Register</button>
       </form>
+      }
     </div>
   );
 };
