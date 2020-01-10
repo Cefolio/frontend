@@ -1,116 +1,101 @@
 import React, { useRef, useEffect } from "react";
-import { withFormik, Formik, Form, Field, ErrorMessage } from "formik";
+
 import { Link } from "react-router-dom";
 import axios from "axios";
-import * as yup from "yup";
+
 import Nav from "./Nav";
 import { connect } from "react-redux";
 import { registerUser } from "../actions/actions";
+import { useForm } from "react-hook-form";
 
-import { TweenMax, Power3 } from "gsap";
 
-const UserForm = ({ onSubmit }) => {
-  let logoItem = useRef(null);
-  let textItem = useRef(null);
-  console.log(logoItem);
 
-  useEffect(() => {
-    console.log(logoItem);
-    TweenMax.to(logoItem, 0.8, {
-      opacity: 1,
-      y: -20,
-      ease: Power3.easeOut
-    });
-    TweenMax.to(textItem, 0.8, {
-      opacity: 1,
-      y: -20,
-      ease: Power3.easeOut,
-      delay: 0.2
-    });
-  }, []);
+const UserForm = ({ signup, ...rest }) => {
+ const { register, handleSubmit, errors, formState} = useForm({
+   mode: "onChange"
+ });
+ const onSubmit = async data =>{
+ const name = data.fname.concat(" ", data.lname);
+ data = {
+   name: name,
+   email: data.email,
+   password: data.password,
+   location: data.location,
+   phone: data.phone,
+   bio: data.bio
+ };
+//  const res = await registerUser(data);
+//  if (res) {
+//    rest.history.push("/Login");
+//  }else{
+
+//  }
+};
+ 
   return (
     <div>
-      <Form>
-        <Nav />
-        <h1
-          ref={el => {
-            logoItem = el;
-          }}
-        >
-          Sign Up
-        </h1>
-
-        <Field
-          className="input-field"
-          name="username"
-          type="text"
-          placeholder="Username"
-        />
-        <ErrorMessage className="error-field" name="username" component="div" />
-        <Field
-          className="input-field"
-          name="password"
-          type="password"
-          placeholder="Password"
-        />
-        <ErrorMessage className="error-field" name="password" component="div" />
-
-        <button type="submit">Create Account</button>
-
-        <p
-          ref={el => {
-            textItem = el;
-          }}
-        >
-          Already have an account?&nbsp;&nbsp;&nbsp;
-          <span>
-            <Link className="login-span" to="/login">
-              Log in
-            </Link>
-          </span>
-        </p>
-      </Form>
+      <h1> Register </h1>
+      <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            {errors.name && "Your first name is needed"}
+            <input
+              type="text"
+              placeholder="First Name"
+              name="fname"
+              width="calc(42% - 20px)"
+              maxWidth="50%"
+              />
+              {errors.name && "Your last name is needed"}
+              <input 
+                type="text"
+                placeholder="Last Name"
+                name="lname"
+                width="calc(42% - 20px)"
+                maxwidth="50%"
+                ref={register({required: true, minLength: 2})}/>
+          </div>
+          {errors.email && "Your email is needed"}
+          <input
+            type="email"
+            placeholder="Email"
+            name="email"
+            />
+            {errors.password && (<ul>
+              <li>Password is required</li>
+            </ul>)}
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              />
+              {errors.location && "Your location is required"}
+              <input
+                type="text"
+                placeholder="Location"
+                name="location"
+                />
+                {errors.phone && "Your phone number is needed"}
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  name="phone"/>
+                  {errors.bio && "Please enter a short bio"}
+                  <input
+                    type="text"
+                    placeholder="Bio"
+                    name="bio"/>
+                <div>
+                  <button type="submit" diabled={!formState.isValid}> Create Account </button>
+                </div>
+        </form>
+      </div>
     </div>
   );
 };
-const FormikRegisterForm = withFormik({
-  mapsPropsToValues({ username, password }) {
-    const validationSchema = yup.object().shape({
-      username: yup.string().required("Please enter your username"),
-      password: yup
-        .string()
-        .required("No password provided.")
-        .min(4, "Password is too short -- should be at least 4 characters.")
-        .matches(
-          /(?=.*[0-9])/,
-          "Password must contain a number and a special character."
-        )
-    });
-    validationSchema
-      .validate(
-        {
-          username: `${username}`,
-          password: `${password}`
-        },
-        { abortEarly: false }
-      )
-      .then(valid => {
-        console.log("valid", valid);
-      })
-      .catch(err => {
-        console.log("err", err.errors);
-      });
-    return {
-      username: username,
-      password: password
-    };
-  },
-  handleSubmit(values, props) {
-    registerUser(values, props);
-  }
-})(UserForm);
 
-export default connect(null, { registerUser })(FormikRegisterForm);
+
+export default connect(null, { registerUser })(UserForm);
 
 // const RegristrationApi = 'api/auth/register';
 // const initialUserForm = {

@@ -13,3 +13,14 @@ I need to have someone review my code to see if I met the requirements for meeti
 //------Student has set up component management for the forms in the app that makes sense for each form. Student made the decision to use a third-party library, like Formik, or not, and can defend their decision. Some form validation is in place.----//
 
 I used Formik because it keeps my code DRY. The only time I did not use Formik was for my search bar. I didn't have a lot of experience creating a search bar so I wanted to stick with some basic form management that was second nature to me in order to get it done.
+
+
+{
+    "username": string,
+    "name": string,
+    "password": string,
+    "email": string,
+   "phone_number": string,
+   "location":string,
+   "bio":string
+}

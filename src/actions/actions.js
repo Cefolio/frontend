@@ -55,7 +55,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 
 export const registerUser = (user, props) => dispatch => {
-  dispatch({ typs: POST_INITIALIZE });
+  dispatch({ type: POST_INITIALIZE });
 
   axiosWithAuth()
     .post(`/users/registration`, user)
