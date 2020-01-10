@@ -63,8 +63,8 @@ export const registerUser = (user, props) => dispatch => {
       dispatch({
         type: POST_CHEF_SUCCESS
       });
-      console.log("Register:", res);
-      props.history.push("/login");
+      localStorage.setItem("token", res.data.token);
+      props.history.push("/dashboard");
     })
     .catch(err => {
       dispatch({
