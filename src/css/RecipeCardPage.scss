@@ -1,10 +1,16 @@
 .recipe-card {
   width: 450px;
-  height: 250px;
+  height: 100%;
   margin: 20px auto;
+  padding: 20px;
   border-radius: 10px;
   background: #C5CBE3;
   box-shadow: 5px 5px 5px #000;
+
+  .recipe-card-font {
+    font-weight: bold;
+    margin-right: 5px;
+  }
 
   .recipe-buttons {
     box-shadow:inset 0px -3px 7px 0px #000;

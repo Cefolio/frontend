@@ -84,7 +84,7 @@ const mainReducer = (state = initialState, action) => {
     case FETCH_RECIPE_SUCCESS:
       return {
         ...state,
-        displayedRecipes: action.payload,
+        recipe: action.payload,
         isFetching: false,
         error: ""
       };
@@ -155,7 +155,6 @@ const mainReducer = (state = initialState, action) => {
         isFetching: false
       };
 
-    // May need to change this
     case FETCH_CHEF_SUCCESS:
       return {
         ...state,
