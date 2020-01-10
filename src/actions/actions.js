@@ -54,6 +54,10 @@ export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 
+// === ADD RECIPE === //
+export const ADD_RECIPE_SUCCESS = "ADD_RECIPE_SUCCESS";
+export const ADD_RECIPE_FAIL = "ADD_RECIPE_FAIL";
+
 export const registerUser = (user, props) => dispatch => {
   dispatch({ type: POST_INITIALIZE });
 
@@ -238,3 +242,24 @@ export const login = (user, props) => dispatch => {
       console.error(err);
     });
 };
+
+export const addRecipe = recipe => dispatch => {
+  dispatch({ type: POST_INITIALIZE });
+
+  axiosWithAuth()
+    .post(`/recipes`, recipe)
+    .then(res => {
+      dispatch({
+        type: ADD_RECIPE_SUCCESS,
+        payload: res.data
+      })
+      console.log("Add Recipe Success!", res)
+    })
+    .catch(err => {
+      dispatch({
+        type: ADD_RECIPE_FAIL,
+        payload: { err, message: err.message }
+      })
+      console.error("Add Recipe Fail!", err);
+    })
+}
