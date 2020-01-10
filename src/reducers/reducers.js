@@ -39,7 +39,11 @@ import {
 
   // ==== CHEF POST ACTIONS ====//
   POST_CHEF_SUCCESS,
-  POST_CHEF_FAILURE
+  POST_CHEF_FAILURE,
+
+  // === ADD RECIPE === //
+  ADD_RECIPE_SUCCESS,
+  ADD_RECIPE_FAIL
 } from "../actions/actions";
 
 const mainReducer = (state = initialState, action) => {
@@ -198,6 +202,19 @@ const mainReducer = (state = initialState, action) => {
         error: action.payload,
         isSubmitting: false
       };
+
+    case ADD_RECIPE_SUCCESS:
+      return {
+        ...state,
+        displayedRecipes: action.payload,
+        error: ''
+      }
+
+    case ADD_RECIPE_FAIL:
+      return {
+        ...state,
+        error: action.payload
+      }
 
     default:
       return state;

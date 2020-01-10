@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import RecipeCard from './RecipeCard';
 // import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { connect } from 'react-redux';
-import { fetchRecipe, fetchChef } from '../actions/actions';
+import { fetchRecipe, fetchChef, deleteRecipe } from '../actions/actions';
 import { Link } from 'react-router-dom';
 import '../css/RecipeCardPage.scss';
 
@@ -76,10 +76,19 @@ const RecipeCardPage = props => {
           </p>
 
           {localStorage.getItem('token') ?
-            <Link to={`/dashboard/`} className="recipe-buttons">
-              Back to Recipes
-            </Link>
-            :
+            <div>
+              <Link to={`/dashboard/`} className="recipe-buttons">
+                Back to Recipes
+              </Link>
+              <Link to={`/usr/recipes/${props.recipe.id}`} className="recipe-buttons">
+                Edit Recipe
+              </Link>
+              <Link to={`/dashboard/`} className="recipe-buttons" 
+                onClick={() => props.deleteRecipe(props.recipe.id)}>
+                Delete Recipe
+              </Link>
+            </div>
+          :
             <Link to={`/chef/${props.chef.id}`} className="recipe-buttons">
               Back to Recipes
             </Link>
@@ -97,4 +106,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { fetchRecipe, fetchChef })(RecipeCardPage);
+export default connect(mapStateToProps, { fetchRecipe, fetchChef, deleteRecipe })(RecipeCardPage);
