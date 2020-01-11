@@ -5,7 +5,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import "../css/RecipeCard.scss";
+import "../css/index.scss";
 import image from "../images/food.jpeg";
 
 const RecipeCard = props => {

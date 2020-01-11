@@ -3,17 +3,18 @@ import RecipeCardContainer from "../containers/RecipeCardContainer";
 import SearchForm from "./SearchForm";
 import NewRecipeForm from "./NewRecipeForm";
 import { connect } from "react-redux";
+import '../css/index.scss';
 
 class ChefsDashboard extends Component {
   render() {
     return (
       <div>
-        <div>
-          <h1>{this.props.chef.name}</h1>
-          <p>{this.props.chef.location}</p>
-          <p>{this.props.chef.email}</p>
-          <p>{this.props.chef.phone_number}</p>
-          <p>{this.props.chef.bio}</p>
+        <div className="chef-dashboard">
+          <h2 className="chef-dashboard-name">{this.props.chef.name}</h2>
+          <p className="chef-dashboard-font">{this.props.chef.location}</p>
+          <p className="chef-dashboard-font">{this.props.chef.email}</p>
+          <p className="chef-dashboard-font">{this.props.chef.phone_number}</p>
+          <p className="chef-dashboard-font">{this.props.chef.bio}</p>
         </div>
         <SearchForm />
         <NewRecipeForm />

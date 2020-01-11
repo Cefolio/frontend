@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-// import {useForm} from 'react-hook-form'
-
-import "../css/LoginForm.scss";
+import "../css/index.scss";
 
 import { connect } from "react-redux";
 import { login } from "../actions/actions";
@@ -28,6 +26,7 @@ const LoginForm = props => {
       <div>
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
+          <label>Email</label>
           <input 
             type="email"
             name="email"
@@ -35,6 +34,7 @@ const LoginForm = props => {
             value={user.email}
             onChange={handleChanges}
           />
+          <label>Password</label>
           <input 
             type="password"
             name="password"
