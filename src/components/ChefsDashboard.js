@@ -2,16 +2,9 @@ import React, { Component } from "react";
 import RecipeCardContainer from "../containers/RecipeCardContainer";
 import SearchForm from "./SearchForm";
 import NewRecipeForm from "./NewRecipeForm";
-import ChefCard from "./ChefCard";
-import { connect } from 'react-redux';
-import { fetchChef } from '../actions/actions';
+import { connect } from "react-redux";
 
 class ChefsDashboard extends Component {
-
-  componentDidMount = e => {
-    this.props.fetchChef();
-  }
-
   render() {
     return (
       <div>
@@ -33,7 +26,7 @@ class ChefsDashboard extends Component {
 const mapStateToProps = state => {
   return {
     chef: state.chef
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, { fetchChef })(ChefsDashboard)
+export default connect(mapStateToProps, {})(ChefsDashboard);

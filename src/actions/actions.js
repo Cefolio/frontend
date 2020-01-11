@@ -58,6 +58,9 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const ADD_RECIPE_SUCCESS = "ADD_RECIPE_SUCCESS";
 export const ADD_RECIPE_FAIL = "ADD_RECIPE_FAIL";
 
+// === LOGOUT === //
+export const LOGOUT = "LOGOUT";
+
 export const registerUser = (user, props) => dispatch => {
   dispatch({ type: POST_INITIALIZE });
 
@@ -175,7 +178,6 @@ export const fetchRecipes = userID => dispatch => {
       });
     })
     .catch(err => {
-      console.log("Failed Recipes", err.message);
       dispatch({
         type: FETCH_RECIPES_FAILURE,
         payload: err.message
@@ -193,7 +195,7 @@ export const editRecipe = (recipeID, recipe) => dispatch => {
       //   // payload: res.data
       // });
       fetchRecipe(recipeID);
-      console.log("editRecipe Success", res)
+      console.log("editRecipe Success", res);
     })
     .catch(err => {
       dispatch({
@@ -213,7 +215,7 @@ export const deleteRecipe = (recipeID, chefID, props) => dispatch => {
       dispatch({
         type: DELETE_RECIPE_SUCCESS
       });
-      fetchRecipes(chefID)
+      fetchRecipes(chefID);
       props.history.push(`/dashboard`);
     })
     .catch(err => {
@@ -229,7 +231,6 @@ export const login = (user, props) => dispatch => {
   dispatch({ type: LOGIN_START });
 
   axiosWithAuth()
-    // Might need to edit endpoint
     .post("/users/login", user)
     .then(res => {
       dispatch({
@@ -257,15 +258,18 @@ export const addRecipe = recipe => dispatch => {
       dispatch({
         type: ADD_RECIPE_SUCCESS,
         payload: res.data
-      })
-      // fetchRecipes(userID);
-      console.log("Add Recipe Success!", res)
+      });
     })
     .catch(err => {
       dispatch({
         type: ADD_RECIPE_FAIL,
         payload: { err, message: err.message }
-      })
+      });
       console.error("Add Recipe Fail!", err);
-    })
-}
+    });
+};
+
+export const logout = () => dispatch => {
+  dispatch({ type: LOGOUT });
+  localStorage.clear();
+};

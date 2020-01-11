@@ -47,6 +47,9 @@ import {
 
   // === LOGIN === //
   LOGIN_SUCCESS,
+
+  // === LOGOUT == //
+  LOGOUT
 } from "../actions/actions";
 
 const mainReducer = (state = initialState, action) => {
@@ -101,13 +104,6 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         error: action.payload
       };
-
-    // case EDIT_RECIPE_SUCCESS:
-    //   return {
-    //     ...state, 
-    //     recipe: action.payload,
-    //     error: ""
-    //   };
 
     case EDIT_RECIPE_FAILURE:
       return {
@@ -195,7 +191,8 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         error: "",
         isSubmitting: false,
-        chef: action.payload
+        chef: action.payload,
+        isLoggedIn: true
       };
 
     case POST_CHEF_FAILURE:
@@ -209,20 +206,27 @@ const mainReducer = (state = initialState, action) => {
       return {
         ...state,
         displayedRecipes: action.payload,
-        error: ''
-      }
+        error: ""
+      };
 
     case ADD_RECIPE_FAIL:
       return {
         ...state,
         error: action.payload
-      }
+      };
 
-    case LOGIN_SUCCESS: 
-    return {
-      ...state,
-      chef: action.payload
-    }
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        chef: action.payload,
+        isLoggedIn: true
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        isLoggedIn: false
+      };
 
     default:
       return state;

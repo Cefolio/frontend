@@ -4,16 +4,9 @@ import { fetchRecipes } from "../actions/actions";
 import RecipeCard from "../components/RecipeCard";
 
 const RecipeCardContainer = props => {
-  /* Need to add data to map*/
   useEffect(() => {
     props.fetchRecipes(props.id);
   }, []);
-
-  // useEffect(() => {
-  //   props.fetchRecipes(props.id);
-  // }, [props.recipes]);
-
-  console.log("recipecontainer", props);
 
   return (
     <div>
