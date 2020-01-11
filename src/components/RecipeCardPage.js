@@ -125,7 +125,7 @@ const RecipeCardPage = props => {
           )}
         </p>
 
-        {localStorage.getItem("token") ? (
+        {props.loggedIn ? (
           <div>
             <Link to={`/dashboard/`} className="recipe-buttons">
               Back to Recipes
@@ -163,7 +163,7 @@ const RecipeCardPage = props => {
             ) : null}
           </div>
         ) : (
-          <Link to={`/chef/${props.chef.id}`} className="recipe-buttons">
+          <Link to={`/chef/${props.recipe.user_id}`} className="recipe-buttons">
             Back to Recipes
           </Link>
         )}
@@ -176,7 +176,8 @@ const mapStateToProps = state => {
   return {
     recipe: state.recipe,
     chef: state.chef,
-    isFetching: state.isFetching
+    isFetching: state.isFetching,
+    loggedIn: state.isLoggedIn
   };
 };
 
