@@ -9,12 +9,6 @@ const RecipeCardContainer = props => {
     props.fetchRecipes(props.id);
   }, []);
 
-  // useEffect(() => {
-  //   props.fetchRecipes(props.id);
-  // }, [props.recipes]);
-
-  console.log("recipecontainer", props);
-
   return (
     <div>
       {props.recipes &&
