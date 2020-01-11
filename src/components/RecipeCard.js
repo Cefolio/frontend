@@ -10,7 +10,7 @@ import '../css/RecipeCard.scss';
 const RecipeCard = props => {
   return (
     <div id={props.recipe.user_id} className="recipe-card">
-      <Link to={`/recipe/${props.recipe.id}`} className="recipe-link">
+      <Link to={`/recipes/${props.recipe.id}`} className="recipe-link">
         <img src={props.recipe.img} alt={props.recipe.title} />
         <h2>{props.recipe.title}</h2>
         <p className="recipe-font">{props.recipe.meal_type}</p>

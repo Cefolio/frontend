@@ -43,7 +43,10 @@ import {
 
   // === ADD RECIPE === //
   ADD_RECIPE_SUCCESS,
-  ADD_RECIPE_FAIL
+  ADD_RECIPE_FAIL,
+
+  // === LOGIN === //
+  LOGIN_SUCCESS,
 } from "../actions/actions";
 
 const mainReducer = (state = initialState, action) => {
@@ -99,14 +102,12 @@ const mainReducer = (state = initialState, action) => {
         error: action.payload
       };
 
-    case EDIT_RECIPE_SUCCESS:
-      return {
-        ...state,
-        isFetching: false,
-        isEditing: false,
-        isSubmitting: true,
-        error: ""
-      };
+    // case EDIT_RECIPE_SUCCESS:
+    //   return {
+    //     ...state, 
+    //     recipe: action.payload,
+    //     error: ""
+    //   };
 
     case EDIT_RECIPE_FAILURE:
       return {
@@ -193,7 +194,8 @@ const mainReducer = (state = initialState, action) => {
       return {
         ...state,
         error: "",
-        isSubmitting: false
+        isSubmitting: false,
+        chef: action.payload
       };
 
     case POST_CHEF_FAILURE:
@@ -215,6 +217,12 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         error: action.payload
       }
+
+    case LOGIN_SUCCESS: 
+    return {
+      ...state,
+      chef: action.payload
+    }
 
     default:
       return state;
