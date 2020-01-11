@@ -47,6 +47,9 @@ import {
 
   // === LOGIN === //
   LOGIN_SUCCESS,
+
+  // === LOGOUT == //
+  LOGOUT
 } from "../actions/actions";
 
 const mainReducer = (state = initialState, action) => {
@@ -203,21 +206,27 @@ const mainReducer = (state = initialState, action) => {
       return {
         ...state,
         displayedRecipes: action.payload,
-        error: ''
-      }
+        error: ""
+      };
 
     case ADD_RECIPE_FAIL:
       return {
         ...state,
         error: action.payload
-      }
+      };
 
     case LOGIN_SUCCESS:
-    return {
-      ...state,
-      chef: action.payload,
-      isLoggedIn: true
-    }
+      return {
+        ...state,
+        chef: action.payload,
+        isLoggedIn: true
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        isLoggedIn: false
+      };
 
     default:
       return state;

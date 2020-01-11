@@ -58,6 +58,9 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const ADD_RECIPE_SUCCESS = "ADD_RECIPE_SUCCESS";
 export const ADD_RECIPE_FAIL = "ADD_RECIPE_FAIL";
 
+// === LOGOUT === //
+export const LOGOUT = "LOGOUT";
+
 export const registerUser = (user, props) => dispatch => {
   dispatch({ type: POST_INITIALIZE });
 
@@ -192,7 +195,7 @@ export const editRecipe = (recipeID, recipe) => dispatch => {
       //   // payload: res.data
       // });
       fetchRecipe(recipeID);
-      console.log("editRecipe Success", res)
+      console.log("editRecipe Success", res);
     })
     .catch(err => {
       dispatch({
@@ -212,7 +215,7 @@ export const deleteRecipe = (recipeID, chefID, props) => dispatch => {
       dispatch({
         type: DELETE_RECIPE_SUCCESS
       });
-      fetchRecipes(chefID)
+      fetchRecipes(chefID);
       props.history.push(`/dashboard`);
     })
     .catch(err => {
@@ -255,13 +258,18 @@ export const addRecipe = recipe => dispatch => {
       dispatch({
         type: ADD_RECIPE_SUCCESS,
         payload: res.data
-      })
+      });
     })
     .catch(err => {
       dispatch({
         type: ADD_RECIPE_FAIL,
         payload: { err, message: err.message }
-      })
+      });
       console.error("Add Recipe Fail!", err);
-    })
-}
+    });
+};
+
+export const logout = () => dispatch => {
+  dispatch({ type: LOGOUT });
+  localStorage.clear();
+};
