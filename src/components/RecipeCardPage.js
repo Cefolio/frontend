@@ -8,6 +8,7 @@ import {
 } from "../actions/actions";
 import { Link } from "react-router-dom";
 import "../css/RecipeCardPage.scss";
+import image from "../images/food.jpeg";
 
 const RecipeCardPage = props => {
   const { title, meal_type, img, ingredients, instructions, id } = props.recipe;
@@ -68,7 +69,7 @@ const RecipeCardPage = props => {
   return (
     <div className="recipe-card">
       <div>
-        <img src={props.recipe.img} alt={props.recipe.title} />
+        <img src={image} alt={props.recipe.title} />
         <h2>
           {editMode ? (
             <input
