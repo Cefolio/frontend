@@ -65,7 +65,8 @@ export const registerUser = (user, props) => dispatch => {
     .post(`/users/registration`, user)
     .then(res => {
       dispatch({
-        type: POST_CHEF_SUCCESS
+        type: POST_CHEF_SUCCESS,
+        payload: res.data.user
       });
       localStorage.setItem("token", res.data.token);
       props.history.push("/dashboard");
@@ -183,14 +184,16 @@ export const fetchRecipes = userID => dispatch => {
     });
 };
 
-export const editRecipe = recipeID => dispatch => {
+export const editRecipe = (recipeID, recipe) => dispatch => {
   axiosWithAuth()
-    .put(`recipes/${recipeID}`)
+    .put(`recipes/${recipeID}`, recipe)
     .then(res => {
-      dispatch({
-        type: EDIT_RECIPE_SUCCESS,
-        payload: res.data.recipes
-      });
+      // dispatch({
+      //   type: EDIT_RECIPE_SUCCESS,
+      //   // payload: res.data
+      // });
+      fetchRecipe(recipeID);
+      console.log("editRecipe Success", res)
     })
     .catch(err => {
       dispatch({
@@ -201,7 +204,7 @@ export const editRecipe = recipeID => dispatch => {
     });
 };
 
-export const deleteRecipe = recipeID => dispatch => {
+export const deleteRecipe = (recipeID, chefID, props) => dispatch => {
   dispatch({ type: DELETE_INITIALIZE });
 
   axiosWithAuth()
@@ -210,6 +213,8 @@ export const deleteRecipe = recipeID => dispatch => {
       dispatch({
         type: DELETE_RECIPE_SUCCESS
       });
+      fetchRecipes(chefID)
+      props.history.push(`/dashboard`);
     })
     .catch(err => {
       dispatch({
@@ -229,7 +234,7 @@ export const login = (user, props) => dispatch => {
     .then(res => {
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: res.data
+        payload: res.data.user
       });
       localStorage.setItem("token", res.data.token);
       props.history.push("/dashboard");
@@ -253,6 +258,7 @@ export const addRecipe = recipe => dispatch => {
         type: ADD_RECIPE_SUCCESS,
         payload: res.data
       })
+      // fetchRecipes(userID);
       console.log("Add Recipe Success!", res)
     })
     .catch(err => {

@@ -20,7 +20,7 @@ function App() {
         <Route path="/login" component={LoginForm} />
         <Route path="/register" component={FormikRegisterForm} />
         <Route path="/chef/:id" component={ChefRecipePage} />
-        <Route path="/recipe/:id" component={RecipeCardPage} />
+        <Route path="/recipes/:id" component={RecipeCardPage} />
         <PrivateRoute path="/dashboard" component={ChefsDashboard} />
       </Switch>
     </div>
