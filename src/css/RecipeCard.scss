@@ -3,7 +3,7 @@
   height: 250px;
   margin: 20px auto;
   border-radius: 10px;
-  background: #C5CBE3;
+  background: #c5cbe3;
   box-shadow: 5px 5px 5px #000;
 
   .recipe-link {
@@ -12,7 +12,11 @@
   }
 
   .recipe-link:hover {
-    color: #4056A1;
+    color: #4056a1;
+  }
+
+  img {
+    max-width: 50%;
   }
 
   .recipe-font {
@@ -20,27 +24,27 @@
   }
 
   .recipe-buttons {
-    box-shadow:inset 0px -3px 7px 0px #000;
-    background:linear-gradient(to bottom, rgb(243, 84, 60) 5%, #F13C20 100%);
-    background-color:rgb(243, 84, 60) 5%;
-    border-radius:3px;
-    display:inline-block;
-    cursor:pointer;
-    color:#ffffff;
-    font-size:15px;
-    padding:9px 23px;
-    text-decoration:none;
-    text-shadow:0px 1px 0px #4056A1;
+    box-shadow: inset 0px -3px 7px 0px #000;
+    background: linear-gradient(to bottom, rgb(243, 84, 60) 5%, #f13c20 100%);
+    background-color: rgb(243, 84, 60) 5%;
+    border-radius: 3px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 15px;
+    padding: 9px 23px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #4056a1;
   }
 
   .recipe-buttons:hover {
-    background:linear-gradient(to bottom, #F13C20 5%, rgb(243, 84, 60) 100%);
-    background-color:#F13C20;
-    color: #EFE2BA;
+    background: linear-gradient(to bottom, #f13c20 5%, rgb(243, 84, 60) 100%);
+    background-color: #f13c20;
+    color: #efe2ba;
   }
 
   .recipe-buttons:active {
-    position:relative;
-	  top:1px;
+    position: relative;
+    top: 1px;
   }
 }
