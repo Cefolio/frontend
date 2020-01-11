@@ -175,7 +175,6 @@ export const fetchRecipes = userID => dispatch => {
       });
     })
     .catch(err => {
-      console.log("Failed Recipes", err.message);
       dispatch({
         type: FETCH_RECIPES_FAILURE,
         payload: err.message
@@ -229,7 +228,6 @@ export const login = (user, props) => dispatch => {
   dispatch({ type: LOGIN_START });
 
   axiosWithAuth()
-    // Might need to edit endpoint
     .post("/users/login", user)
     .then(res => {
       dispatch({
@@ -258,8 +256,6 @@ export const addRecipe = recipe => dispatch => {
         type: ADD_RECIPE_SUCCESS,
         payload: res.data
       })
-      // fetchRecipes(userID);
-      console.log("Add Recipe Success!", res)
     })
     .catch(err => {
       dispatch({
