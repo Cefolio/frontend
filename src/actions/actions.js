@@ -258,6 +258,7 @@ export const addRecipe = recipe => dispatch => {
         type: ADD_RECIPE_SUCCESS,
         payload: res.data
       })
+      // fetchRecipes(userID);
       console.log("Add Recipe Success!", res)
     })
     .catch(err => {

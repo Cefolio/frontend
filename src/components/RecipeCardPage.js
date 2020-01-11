@@ -175,7 +175,7 @@ const RecipeCardPage = props => {
               </button>
               {isDeleting ? (
                 <div>
-                <button onClick={() => props.deleteRecipe(id)}>Confirm Delete</button>
+                <button onClick={() => props.deleteRecipe(id, props.chef.id, props)}>Confirm Delete</button>
                 <button onClick={() => setIsDeleting(false)}>Cancel</button>
                 </div>
                 ) : null
