@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { registerUser } from "../actions/actions";
+import "../css/index.scss";
 
 const UserForm = props => {
   const [user, setUser] = useState({
@@ -24,6 +25,7 @@ const UserForm = props => {
 
   return (
     <div>
+      <h1>Register</h1>
       <form on onSubmit={handleSubmit}>
         <label>Name</label>
         <input

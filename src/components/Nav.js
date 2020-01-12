@@ -5,8 +5,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../actions/actions";
-// Change to index.scss
-import "../css/Nav.scss";
+import "../css/index.scss";
 
 const Nav = props => {
   return (

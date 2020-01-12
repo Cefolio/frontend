@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { addRecipe } from '../actions/actions';
+import "../css/index.scss";
 
 const NewRecipeForm = props => {
 
@@ -36,7 +37,8 @@ const NewRecipeForm = props => {
     return (
              <div>
                 <h2>Create New Recipe</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="recipe-form">
+                    <label className="label">Title</label>
                     <input
                         type="text"
                         name="title"
@@ -45,14 +47,7 @@ const NewRecipeForm = props => {
                         value={recipe.title}
                         />
                         <br />
-                        {/* <input
-                            type="text"
-                            name="img"
-                            onChange={handleChange}
-                            placeholder='Image'
-                            value={recipe.img}
-                            />
-                        <br/> */}
+                        <label className="label">Meal Type</label>
                         <input
                             type="text"
                             name="meal_type"
@@ -61,6 +56,7 @@ const NewRecipeForm = props => {
                             value={recipe.meal_type}
                             />
                         <br/>
+                        <label className="label">Ingredients</label>
                         <input
                             type="text"
                             name="ingredients"
@@ -69,6 +65,7 @@ const NewRecipeForm = props => {
                             value={recipe.ingredients}
                             />
                         <br/>
+                        <label className="label">instructions</label>
                         <input
                             type="text"
                             name="instructions"
@@ -77,7 +74,9 @@ const NewRecipeForm = props => {
                             value={recipe.instructions}
                             />
                         <br/>
-                        <button type='submit'>Add Recipe</button>
+                        <button type='submit' className="recipe-button">
+                            Add Recipe
+                        </button>
                 </form>
             </div>
     )
