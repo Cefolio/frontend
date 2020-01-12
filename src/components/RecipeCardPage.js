@@ -31,7 +31,9 @@ const RecipeCardPage = props => {
   }, []);
 
   useEffect(() => {
-    props.fetchRecipe(props.match.params.id);
+    if (!props.loggedIn) {
+      props.fetchChef(props.recipe.user_id);
+    }
   }, [props.recipe]);
 
   const handleChange = e => {
@@ -45,6 +47,7 @@ const RecipeCardPage = props => {
     e.preventDefault();
     props.editRecipe(props.match.params.id, recipe);
     setEditMode(false);
+    props.fetchRecipe(props.match.params.id);
   };
 
   const triggerEditConfirmation = e => {
@@ -73,13 +76,13 @@ const RecipeCardPage = props => {
         <h2>
           {editMode ? (
             <>
-            <span className="recipe-card-font">Title:</span>
-            <input
-              type="text"
-              value={recipe.title}
-              name="title"
-              onChange={handleChange}
-            />
+              <span className="recipe-card-font">Title:</span>
+              <input
+                type="text"
+                value={recipe.title}
+                name="title"
+                onChange={handleChange}
+              />
             </>
           ) : (
             title
@@ -98,14 +101,12 @@ const RecipeCardPage = props => {
             meal_type
           )}
         </p>
-          {editMode ? (
-            null
-          ) : (
-            <p>
-              <span className="recipe-card-font">Chef Name:</span>
-                {props.chef.name}
-            </p>
-          )}
+        {editMode ? null : (
+          <p>
+            <span className="recipe-card-font">Chef Name:</span>
+            {props.chef.name}
+          </p>
+        )}
         <p>
           <span className="recipe-card-font">Ingredients:</span>
           {editMode ? (
@@ -152,9 +153,11 @@ const RecipeCardPage = props => {
                 <button onClick={handleEdit} className="recipe-page-button">
                   Commit Changes
                 </button>
-                <button onClick={() => setEditMode(false)} 
-                  className="recipe-page-button">
-                    Cancel
+                <button
+                  onClick={() => setEditMode(false)}
+                  className="recipe-page-button"
+                >
+                  Cancel
                 </button>
               </div>
             ) : null}
@@ -170,20 +173,25 @@ const RecipeCardPage = props => {
               <div>
                 <button
                   onClick={() => props.deleteRecipe(id, props.chef.id, props)}
-                  className="recipe-page-button">
+                  className="recipe-page-button"
+                >
                   Confirm Delete
                 </button>
-                <button onClick={() => setIsDeleting(false)} 
-                  className="recipe-page-button">
-                    Cancel
+                <button
+                  onClick={() => setIsDeleting(false)}
+                  className="recipe-page-button"
+                >
+                  Cancel
                 </button>
               </div>
             ) : null}
           </div>
         ) : (
-          <Link to={`/chef/${props.recipe.user_id}`} 
-            className="recipe-page-button">
-              Back to Recipes
+          <Link
+            to={`/chef/${props.recipe.user_id}`}
+            className="recipe-page-button"
+          >
+            Back to Recipes
           </Link>
         )}
       </div>
