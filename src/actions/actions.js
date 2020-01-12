@@ -84,14 +84,12 @@ export const registerUser = (user, props) => dispatch => {
     });
 };
 
-// Added for Nav
 export const fetchChef = chefID => dispatch => {
   dispatch({ type: FETCH_INITIALIZE });
 
   axiosWithAuth()
     .get(`/users/${chefID}`)
     .then(res => {
-      console.log("fetchChef Success", res);
       dispatch({
         type: FETCH_CHEF_SUCCESS,
         payload: res.data
@@ -127,7 +125,6 @@ export const fetchChefs = () => dispatch => {
 };
 
 export const editChef = chefID => dispatch => {
-  // revist when backend if complete
   axiosWithAuth()
     .put(`/users/${chefID}`)
     .then(res => {
@@ -171,7 +168,6 @@ export const fetchRecipes = userID => dispatch => {
   axios
     .get(`https://chefmode.herokuapp.com/recipes/usr/${userID}`)
     .then(res => {
-      console.log("Recipes:", res);
       dispatch({
         type: FETCH_RECIPES_SUCCESS,
         payload: res.data
@@ -190,10 +186,6 @@ export const editRecipe = (recipeID, recipe) => dispatch => {
   axiosWithAuth()
     .put(`recipes/${recipeID}`, recipe)
     .then(res => {
-      // dispatch({
-      //   type: EDIT_RECIPE_SUCCESS,
-      //   // payload: res.data
-      // });
       fetchRecipe(recipeID);
       console.log("editRecipe Success", res);
     })
