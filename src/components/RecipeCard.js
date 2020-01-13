@@ -5,17 +5,16 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import '../css/RecipeCard.scss';
+import "../css/index.scss";
+import image from "../images/food.jpeg";
 
 const RecipeCard = props => {
   return (
-    <div>
-      <Link to={`/recipe/${props.recipe.id}`}>
-        <img src={props.recipe.img} alt={props.recipe.title} />
+    <div id={props.recipe.user_id} className="recipe-card">
+      <Link to={`/recipes/${props.recipe.id}`} className="recipe-link">
+        <img src={image} alt={props.recipe.title} />
         <h2>{props.recipe.title}</h2>
-        <p>{props.recipe.meal_type}</p>
-        <p>{props.recipe.ingredients}</p>
-        <p>{props.recipe.instructions}</p>
+        <p className="recipe-font">{props.recipe.meal_type}</p>
       </Link>
     </div>
   );

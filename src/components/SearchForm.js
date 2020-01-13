@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 
 import { fetchRecipesByName } from '../actions/recipesByName';
 
+import "../css/index.scss";
+
 function SearchForm({
     fetchRecipesByName,
     isFetching,
@@ -41,7 +43,7 @@ function SearchForm({
                 onChange={e => handleChange(e)}
                 onKeyDown={e => handleInput(e)}
                 />
-                <button onClick={showModal}>Search</button>
+                <button onClick={showModal} className="button">Search</button>
         </div>
     );
 }

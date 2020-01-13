@@ -1,87 +1,216 @@
-import React, { useState, useEffect } from 'react';
-// import RecipeCard from './RecipeCard';
-// import { axiosWithAuth } from '../utils/axiosWithAuth';
-import { connect } from 'react-redux';
-import { fetchRecipe, fetchChef } from '../actions/actions';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import {
+  fetchRecipe,
+  fetchChef,
+  deleteRecipe,
+  editRecipe
+} from "../actions/actions";
+import { Link } from "react-router-dom";
+import "../css/index.scss";
+import image from "../images/food.jpeg";
 
 const RecipeCardPage = props => {
+  const { title, meal_type, img, ingredients, instructions, id } = props.recipe;
 
   const [recipe, setRecipe] = useState({
-    title: '',
-    user_id: '',
-    meal_type: '',
-    ingredients: '',
-    img: ''
-  })
-
-  const [chef, setChef] = useState({
-    name: ''
+    title: "",
+    meal_type: "",
+    img: "",
+    ingredients: "",
+    instructions: "",
+    user_id: ""
   });
 
+  const [editMode, setEditMode] = useState(false);
+
+  const [isDeleting, setIsDeleting] = useState(false);
+
   useEffect(() => {
-    props.fetchRecipe();
-    props.fetchChef();
-    setRecipe(props.recipe)
-    setChef(props.chef.name)
-  }, [props.recipe, props.chef])
+    props.fetchRecipe(props.match.params.id);
+  }, []);
 
-  // const [recipe, setRecipe] = useState({
-  //   id: '',
-  //   mealType: '',
-  //   ingredients: '',
-  //   img: ''
-  // })
+  useEffect(() => {
+    if (!props.loggedIn) {
+      props.fetchChef(props.recipe.user_id);
+    }
+  }, [props.recipe]);
 
-  // const [chef, setChef] = useState('');
+  const handleChange = e => {
+    setRecipe({
+      ...recipe,
+      [e.target.name]: e.target.value
+    });
+  };
 
-  // useEffect(() => {
-  //   axiosWithAuth()
-  //     .get(`/recipe/${props.displayRecipes}`)
-  //     .then(res => {
-  //       setRecipe(props.recipe);
-  //     })
-  //     .catch(err => {
-  //       console.error(err);
-  //     });
-  // })
+  const handleEdit = e => {
+    e.preventDefault();
+    props.editRecipe(props.match.params.id, recipe);
+    setEditMode(false);
+    props.fetchRecipe(props.match.params.id);
+  };
+
+  const triggerEditConfirmation = e => {
+    e.preventDefault();
+    setEditMode(true);
+    setRecipe({
+      ...recipe,
+      title: title,
+      img: img,
+      meal_type: meal_type,
+      ingredients: ingredients,
+      instructions: instructions,
+      user_id: props.chef.id
+    });
+  };
+
+  const triggerDeleteConfirmation = e => {
+    e.preventDefault();
+    setIsDeleting(true);
+  };
 
   return (
     <div className="recipe-card">
-      {recipe.map(recipe => {
-        return(
-        <div> 
-          {/* RecipeCard component has button - not needed here */}
-          {/* <RecipeCard recipe={recipe} /> */}
-          <img src={recipe.img} alt={recipe.title} />
-          <h2>{recipe.title}</h2>
-          <p>Meal Type: {recipe.mealType}</p>
-          <p>Chef Name: {chef.name}</p>
-          <p>Ingredients: {recipe.ingredients}</p>
-          <p className="recipe-card">Instructions: {recipe.instructions}</p>
+      <div>
+        <img src={image} alt={props.recipe.title} />
+        <h2>
+          {editMode ? (
+            <>
+              <span className="recipe-card-font">Title:</span>
+              <input
+                type="text"
+                value={recipe.title}
+                name="title"
+                onChange={handleChange}
+              />
+            </>
+          ) : (
+            title
+          )}
+        </h2>
+        <p>
+          <span className="recipe-card-font">Meal Type:</span>
+          {editMode ? (
+            <input
+              type="text"
+              value={recipe.meal_type}
+              name="meal_type"
+              onChange={handleChange}
+            />
+          ) : (
+            meal_type
+          )}
+        </p>
+        {editMode ? null : (
+          <p>
+            <span className="recipe-card-font">Chef Name:</span>
+            {props.chef.name}
+          </p>
+        )}
+        <p>
+          <span className="recipe-card-font">Ingredients:</span>
+          {editMode ? (
+            <input
+              type="text"
+              value={recipe.ingredients}
+              name="ingredients"
+              onChange={handleChange}
+            />
+          ) : (
+            ingredients
+          )}
+        </p>
+        <p>
+          <span className="recipe-card-font">Instructions:</span>
+          {editMode ? (
+            <input
+              type="text"
+              value={recipe.instructions}
+              name="instructions"
+              onChange={handleChange}
+            />
+          ) : (
+            instructions
+          )}
+        </p>
 
-          {localStorage.getItem('token') ?
-            <Link to={`/dashboard/${props.chef.id}`} className="recipe-buttons">
-              Back to Recipes
-            </Link>
-            :
-            <Link to={`/recipes`} className="recipe-buttons">
-              Back to Recipes
-            </Link>
-          }
-        </div>)
-      })}
+        {props.loggedIn ? (
+          <div>
+            <button>
+              <Link to={`/dashboard/`} className="text-decoration">
+                Back to Recipes
+              </Link>
+            </button>
+            <button
+              onClick={triggerEditConfirmation}
+              className="recipe-page-button"
+              style={editMode ? { display: "none" } : null}
+            >
+              Edit Recipe
+            </button>
+            {editMode ? (
+              <div>
+                <button onClick={handleEdit} className="recipe-page-button">
+                  Commit Changes
+                </button>
+                <button
+                  onClick={() => setEditMode(false)}
+                  className="recipe-page-button"
+                >
+                  Cancel
+                </button>
+              </div>
+            ) : null}
+
+            <button
+              className="recipe-page-button"
+              onClick={triggerDeleteConfirmation}
+              style={isDeleting ? { display: "none" } : null}
+            >
+              Delete Recipe
+            </button>
+            {isDeleting ? (
+              <div>
+                <button
+                  onClick={() => props.deleteRecipe(id, props.chef.id, props)}
+                  className="recipe-page-button"
+                >
+                  Confirm Delete
+                </button>
+                <button
+                  onClick={() => setIsDeleting(false)}
+                  className="recipe-page-button"
+                >
+                  Cancel
+                </button>
+              </div>
+            ) : null}
+          </div>
+        ) : (
+          <Link
+            to={`/chef/${props.recipe.user_id}`}
+            className="recipe-page-button"
+          >
+            Back to Recipes
+          </Link>
+        )}
+      </div>
     </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = state => {
   return {
     recipe: state.recipe,
-    displayedRecipes: state.displayedRecipes,
     chef: state.chef,
-    isFetching: state.isFetching
-  }
-}
+    isFetching: state.isFetching,
+    loggedIn: state.isLoggedIn
+  };
+};
 
-export default connect(mapStateToProps, { fetchRecipe, fetchChef })(RecipeCardPage);
+export default connect(mapStateToProps, {
+  fetchRecipe,
+  fetchChef,
+  deleteRecipe,
+  editRecipe
+})(RecipeCardPage);

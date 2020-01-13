@@ -1,15 +1,24 @@
-import React, { useRef, useEffect } from "react";
-
-import { Link } from "react-router-dom";
-import axios from "axios";
-
-import Nav from "./Nav";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { registerUser } from "../actions/actions";
-import { useForm } from "react-hook-form";
+import "../css/index.scss";
 
+const UserForm = props => {
+  const [user, setUser] = useState({
+    name: "",
+    username: "",
+    password: "",
+    email: "",
+    phoneNumber: "",
+    location: "",
+    bio: ""
+  });
 
+  const handleChange = e => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
 
+<<<<<<< HEAD
 const UserForm = ({ signup, ...rest }) => {
   console.log("rest",rest)
  const { register, handleSubmit, errors, formState} = useForm({
@@ -29,12 +38,16 @@ const UserForm = ({ signup, ...rest }) => {
 //  if (res) {
 //    rest.history.push("/Login");
 //  }else{
+=======
+  const handleSubmit = e => {
+    e.preventDefault();
+    props.registerUser(user, props);
+  };
+>>>>>>> 43718fa08d5bbc12f4a49e5b771e1344003b107b
 
-//  }
-};
- 
   return (
     <div>
+<<<<<<< HEAD
       <h1> Register </h1>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -92,44 +105,76 @@ const UserForm = ({ signup, ...rest }) => {
                 </div>
         </form>
       </div>
+=======
+      <h1>Register</h1>
+      <form on onSubmit={handleSubmit}>
+        <label>Name</label>
+        <input
+          type="text"
+          placeholder="Name"
+          name="name"
+          value={user.name}
+          onChange={handleChange}
+        />
+        <label>Username</label>
+        <input
+          type="text"
+          placeholder="Username"
+          name="username"
+          value={user.username}
+          onChange={handleChange}
+        />
+        <label>Password</label>
+        <input
+          type="text"
+          placeholder="Password"
+          name="password"
+          value={user.password}
+          onChange={handleChange}
+        />
+        <label>Email</label>
+        <input
+          type="text"
+          placeholder="Email"
+          name="email"
+          value={user.email}
+          onChange={handleChange}
+        />
+        <label>Phone Number</label>
+        <input
+          type="text"
+          placeholder="Phone Number"
+          name="phoneNumber"
+          value={user.phoneNumber}
+          onChange={handleChange}
+        />
+        <label>Location</label>
+        <input
+          type="text"
+          placeholder="Location"
+          name="location"
+          value={user.location}
+          onChange={handleChange}
+        />
+        <label>Bio</label>
+        <input
+          type="text"
+          placeholder="Bio"
+          name="bio"
+          value={user.bio}
+          onChange={handleChange}
+        />
+        <button>Register</button>
+      </form>
+>>>>>>> 43718fa08d5bbc12f4a49e5b771e1344003b107b
     </div>
   );
 };
 
+const mapStatetoProps = state => {
+  return {
+    loggedIn: state.isLoggedIn
+  };
+};
 
-export default connect(null, { registerUser })(UserForm);
-
-// const RegristrationApi = 'api/auth/register';
-// const initialUserForm = {
-//     email: '',
-//     username: '',
-//     password: ''
-// };
-
-// const validate = formValues => {
-//     const errors = {};
-// }
-
-// export default function Container(){
-//     const [serverError, setServerError] = useState('');
-//     const addChef = (formValues, actions) => {
-//         const chefToPost = {
-//             username: formValues.username,
-//             password: formValues.password
-//         };
-//         axios
-//             .post(RegristrationApi, chefToPost)
-//             .then(res => {
-//                 actions.resetForm();
-//             })
-//             .catch(err => {
-//                 console.log(err);
-//             });
-//     };
-//     return (
-//         <div>
-//             {serverError}
-//             <UserForm onSubmit={addChef}/>
-//         </div>
-//     );
-// }
+export default connect(mapStatetoProps, { registerUser })(UserForm);

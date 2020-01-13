@@ -5,7 +5,7 @@ export const axiosWithAuth = () => {
   return axios.create({
     baseURL: "https://chefmode.herokuapp.com/",
     headers: {
-      Authorization: token
+      token: token
     }
   });
 };

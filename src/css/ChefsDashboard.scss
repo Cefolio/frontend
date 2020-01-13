@@ -1,0 +1,21 @@
+.chef-dashboard {
+  width: 450px;
+  height: 250px;
+  margin: 20px auto;
+  border-radius: 10px;
+  background:linear-gradient(to top, rgb(236, 183, 85) 5%, #D79922 100%);  
+  box-shadow: 5px 5px 5px #000;
+
+  .chef-dashboard-name {
+    color: black;
+    box-shadow: 2px 2px 2px rgb(61, 61, 61);
+    margin: 30px auto;
+    padding: 15px 0;
+    font-size: 24px;
+  }
+
+  .chef-dashboard-font {
+    text-decoration: none;
+    color: black;
+  }
+}

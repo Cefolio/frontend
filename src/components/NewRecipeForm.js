@@ -1,73 +1,90 @@
-import React from 'react';
-import { AxiosWithAuth, axiosWithAuth } from '../utils/axiosWithAuth';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { addRecipe } from '../actions/actions';
+import "../css/index.scss";
 
-class NewRecipe extends React.Component {
-    state = {
-        id: new Date().getUTCMilliseconds(),
-        chef: '',
-        nameOfRecipe: '',
-        ingredients: {},
-        instructions: []
+const NewRecipeForm = props => {
 
-    };
-    changeHandler = e => {
-        e.persist();
-        this.setState({
+    const [recipe, setRecipe] = useState({
+        title: '',
+        img: '',
+        meal_type: '',
+        ingredients: '',
+        instructions: '',
+        user_id: props.id
+    });
+
+    const handleChange = e => {
+        setRecipe({
+            ...recipe,
             [e.target.name]: e.target.value
         })
-    };
-    handleSubmit = e => {
+    }
+
+    const handleSubmit = e => {
         e.preventDefault();
-        //Post request to server to add a new recipe
-        axiosWithAuth().post('someSortOfEndPoint', this.state)
-        .then(res => {
-            console.log('res', res)
-        })
-        .catch(err => {
-            console.log('err', err)
-        })
-    };
-    render(){
-        return(
-            <div>
+        props.addRecipe(recipe, props.id);
+        setRecipe({
+            title: '',
+            img: '',
+            meal_type: '',
+            ingredients: '',
+            instructions: '',
+            user_id: props.id
+        });
+    }
+
+    return (
+             <div>
                 <h2>Create New Recipe</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={handleSubmit} className="recipe-form">
+                    <label className="label">Title</label>
                     <input
                         type="text"
-                        name="chef"
-                        onChange={this.changeHandler}
-                        placeholder="Chef"
-                        value={this.state.chef}
-                        />
-                        <br/>
-                    <input
-                        type="text"
-                        name="name"
-                        onChange={this.changeHandler}
+                        name="title"
+                        onChange={handleChange}
                         placeholder="Recipe Name"
-                        value={this.state.nameOfRecipe}
+                        value={recipe.title}
                         />
                         <br />
+                        <label className="label">Meal Type</label>
+                        <input
+                            type="text"
+                            name="meal_type"
+                            onChange={handleChange}
+                            placeholder='Meal Type'
+                            value={recipe.meal_type}
+                            />
+                        <br/>
+                        <label className="label">Ingredients</label>
                         <input
                             type="text"
                             name="ingredients"
-                            onChange={this.changeHandler}
+                            onChange={handleChange}
                             placeholder='Ingredients'
-                            value={this.state.ingredients}
+                            value={recipe.ingredients}
                             />
                         <br/>
+                        <label className="label">instructions</label>
                         <input
                             type="text"
                             name="instructions"
-                            onChange={this.changeHandler}
+                            onChange={handleChange}
                             placeholder="Instructions"
-                            value={this.state.instructions}
+                            value={recipe.instructions}
                             />
                         <br/>
-                        <button type='submit'>Add Recipe</button>
+                        <button type='submit' className="recipe-button">
+                            Add Recipe
+                        </button>
                 </form>
             </div>
-        );
+    )
+}
+
+const mapStateToProps = state => {
+    return {
+        id: state.chef.id
     }
 }
-export default NewRecipe;
+export default connect(mapStateToProps, { addRecipe })(NewRecipeForm);

@@ -39,7 +39,17 @@ import {
 
   // ==== CHEF POST ACTIONS ====//
   POST_CHEF_SUCCESS,
-  POST_CHEF_FAILURE
+  POST_CHEF_FAILURE,
+
+  // === ADD RECIPE === //
+  ADD_RECIPE_SUCCESS,
+  ADD_RECIPE_FAIL,
+
+  // === LOGIN === //
+  LOGIN_SUCCESS,
+
+  // === LOGOUT == //
+  LOGOUT
 } from "../actions/actions";
 
 const mainReducer = (state = initialState, action) => {
@@ -84,7 +94,7 @@ const mainReducer = (state = initialState, action) => {
     case FETCH_RECIPE_SUCCESS:
       return {
         ...state,
-        displayedRecipes: action.payload,
+        recipe: action.payload,
         isFetching: false,
         error: ""
       };
@@ -93,15 +103,6 @@ const mainReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload
-      };
-
-    case EDIT_RECIPE_SUCCESS:
-      return {
-        ...state,
-        isFetching: false,
-        isEditing: false,
-        isSubmitting: true,
-        error: ""
       };
 
     case EDIT_RECIPE_FAILURE:
@@ -155,7 +156,6 @@ const mainReducer = (state = initialState, action) => {
         isFetching: false
       };
 
-    // May need to change this
     case FETCH_CHEF_SUCCESS:
       return {
         ...state,
@@ -190,7 +190,9 @@ const mainReducer = (state = initialState, action) => {
       return {
         ...state,
         error: "",
-        isSubmitting: false
+        isSubmitting: false,
+        chef: action.payload,
+        isLoggedIn: true
       };
 
     case POST_CHEF_FAILURE:
@@ -198,6 +200,32 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
         isSubmitting: false
+      };
+
+    case ADD_RECIPE_SUCCESS:
+      return {
+        ...state,
+        displayedRecipes: action.payload,
+        error: ""
+      };
+
+    case ADD_RECIPE_FAIL:
+      return {
+        ...state,
+        error: action.payload
+      };
+
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        chef: action.payload,
+        isLoggedIn: true
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        isLoggedIn: false
       };
 
     default:
