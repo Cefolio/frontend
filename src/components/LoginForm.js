@@ -27,6 +27,7 @@ function LoginForm({ login , ... rest }) {
   return (
     <div>
       <h1>Login</h1>
+      
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           {errors.text && "Username is needed"}

@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 
 
 const UserForm = ({ signup, ...rest }) => {
+  console.log("rest",rest)
  const { register, handleSubmit, errors, formState} = useForm({
    mode: "onChange"
  });
@@ -45,6 +46,7 @@ const UserForm = ({ signup, ...rest }) => {
               name="fname"
               width="calc(42% - 20px)"
               maxWidth="50%"
+              ref={register({ required: true, minLength: 2 })}
               />
               {errors.name && "Your last name is needed"}
               <input 
