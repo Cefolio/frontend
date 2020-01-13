@@ -22,15 +22,7 @@ const LoginForm = props => {
     })
   }
 
-<<<<<<< HEAD
-  
-  return (
-    <div>
-      <h1>Login</h1>
-      
-=======
     return (
->>>>>>> 43718fa08d5bbc12f4a49e5b771e1344003b107b
       <div>
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
