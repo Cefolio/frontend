@@ -191,7 +191,16 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         error: "",
         isSubmitting: false,
-        chef: action.payload,
+        chef: {
+          id: action.payload.id[0],
+          username: action.payload.user.username,
+          name: action.payload.user.name,
+          password: action.payload.user.password,
+          email: action.payload.user.email,
+          phone_number: action.payload.user.phone_number,
+          location: action.payload.user.location,
+          bio: action.payload.user.bio
+        },
         isLoggedIn: true
       };
 

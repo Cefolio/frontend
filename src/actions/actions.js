@@ -69,7 +69,7 @@ export const registerUser = (user, props) => dispatch => {
     .then(res => {
       dispatch({
         type: POST_CHEF_SUCCESS,
-        payload: res.data.user
+        payload: res.data
       });
       localStorage.setItem("token", res.data.token);
       props.history.push("/dashboard");
